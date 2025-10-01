@@ -1,65 +1,47 @@
 <div class="dashboard-container">
   <mat-toolbar class="dashboard-toolbar mat-elevation-z2">
     <div class="nav-buttons">
-      <!-- Assets menu -->
-      <button mat-button [matMenuTriggerFor]="assetsMenu" type="button">
-        Assets <mat-icon>expand_more</mat-icon>
-      </button>
-      <mat-menu #assetsMenu="matMenu" xPosition="after">
-        <!-- Redirects to /upload-file as a separate page -->
-        <a mat-menu-item [routerLink]="['/upload-file']" (click)="navigate('/upload-file')">
-          Upload File
-        </a>
+      <button mat-button [matMenuTriggerFor]="assetsMenu">Assets <mat-icon>expand_more</mat-icon></button>
+      <mat-menu #assetsMenu="matMenu" xPosition="after" class="assets-menu">
+        <button mat-menu-item routerLink="/upload-file">Upload File</button>
       </mat-menu>
 
-  <!-- Categories (placeholder) -->
-  <a mat-button [routerLink]="['/categories']" (click)="navigate('/categories')">Categories</a>
-
-      <!-- Redirects to /activity as a separate page -->
-      <a mat-button [routerLink]="['/activity']" (click)="navigate('/activity')">Activity</a>
-
-      
+      <button mat-button routerLink="/categories">Categories</button>
+      <button mat-button routerLink="/activity">Activity</button>
     </div>
 
     <div class="spacer"></div>
 
-    <!-- Example search bar -->
     <mat-form-field appearance="outline" class="search-bar">
       <mat-label>Search</mat-label>
-      <input matInput placeholder="Search for assets..." (input)="applyFilter($any($event.target).value)" />
-      <button mat-icon-button matSuffix aria-label="Search" type="button" (click)="onSearch()">
+      <input matInput placeholder="Search for assets..." #searchInput (input)="applyFilter($any($event.target).value)">
+      <button mat-icon-button matSuffix aria-label="Search" type="button" (click)="applyFilter(searchInput.value)">
         <mat-icon>search</mat-icon>
+      </button>
+      <button mat-icon-button matSuffix aria-label="Clear" type="button" (click)="applyFilter(''); searchInput.value='';">
+        <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
 
+    <!-- <div class="spacer"></div> -->
+
+    <button mat-icon-button [matMenuTriggerFor]="moreMenu" class="more-button"><mat-icon>more_vert</mat-icon></button>
+    <mat-menu #moreMenu="matMenu">
+      <!-- <button mat-menu-item>Assets</button> -->
+      <button mat-menu-item>Advanced Search</button>
+      <!-- <button mat-menu-item>Multiple Asset Search</button> -->
+      <button mat-menu-item>Saved Searches</button>
+      <button mat-menu-item>Search Help</button>
+    </mat-menu>
+    <div class="spacer"></div>
     <div class="spacer"></div>
 
-    <!-- More menu -->
-    <button mat-button [matMenuTriggerFor]="moreMenu" class="more-button" type="button">
-      More <mat-icon>expand_more</mat-icon>
-    </button>
-    <mat-menu #moreMenu="matMenu">
-      <button mat-menu-item type="button">Advanced Search</button>
-      <button mat-menu-item type="button">Saved Searches</button>
-      <button mat-menu-item type="button">Search Help</button>
-    </mat-menu>
-
-    <!-- Icons -->
-    <button mat-icon-button aria-label="Notifications" type="button">
-      <mat-icon>notifications</mat-icon>
-    </button>
-    <button mat-icon-button aria-label="Help" type="button">
-      <mat-icon>help_outline</mat-icon>
-    </button>
-    <button mat-icon-button aria-label="User Profile" type="button">
-      <mat-icon>account_circle</mat-icon>
-    </button>
+    <button mat-icon-button aria-label="Notifications"><mat-icon>notifications</mat-icon></button>
+    <button mat-icon-button aria-label="Help"><mat-icon>help_outline</mat-icon></button>
+    <button mat-icon-button aria-label="User Profile"><mat-icon>account_circle</mat-icon></button>
   </mat-toolbar>
-
-  <div class="container">
-
-     <div class="container">
   
+  <div class="container">
   <mat-card class="records-card">
   <mat-card-header>
     <mat-card-title>Alias Lookup table data.</mat-card-title>
@@ -123,17 +105,16 @@
       </ng-container>
 
       <!-- Modified By Column -->
-<ng-container matColumnDef="ModifiedBy">
-  <th mat-header-cell *matHeaderCellDef> Modified By </th>
-  <td mat-cell *matCellDef="let element"> {{element.ModifiedBy}} </td>
-</ng-container>
+      <ng-container matColumnDef="ModifiedBy">
+        <th mat-header-cell *matHeaderCellDef> Modified By </th>
+        <td mat-cell *matCellDef="let element"> {{element.ModifiedBy}} </td>
+      </ng-container>
 
-<!-- Modified Date Column -->
-<ng-container matColumnDef="ModifiedDate">
-  <th mat-header-cell *matHeaderCellDef> Modified Date </th>
-  <td mat-cell *matCellDef="let element"> {{element.ModifiedDate}} </td>
-</ng-container>
-
+      <!-- Modified Date Column -->
+      <ng-container matColumnDef="ModifiedDate">
+        <th mat-header-cell *matHeaderCellDef> Modified Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.ModifiedDate}} </td>
+      </ng-container>
 
       <!-- Header and Row Definitions -->
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -142,7 +123,5 @@
   </mat-card-content>
 </mat-card>
 
-
-    <!-- dashboard content (your table, cards, etc.) -->
-  </div>
+</div>
 </div>
