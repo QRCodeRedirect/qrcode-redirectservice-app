@@ -1,25 +1,7 @@
 <mat-sidenav-container>
   <mat-sidenav-content>
-    <mat-toolbar color="primary" class="header" *ngIf="!isLoginPage">
-      <span><img src="assets/ecolab-logo-white-svg.svg" alt="Ecolab Logo" /></span>
-      <span class="toolbar-title">{{title}}</span>
-    </mat-toolbar>
     <router-outlet></router-outlet>
     
-    <mat-toolbar class="footer" *ngIf="!isLoginPage">
-      <div class="footer-content">
-        <div class="footer-links">
-          <span>
-            © Ecolab {{this.currentYear}}
-          </span>
-          <span>
-            &nbsp;|&nbsp;<a href="#">Privacy Policy</a>&nbsp;|&nbsp;<a href="#">Terms of Service</a>
-          </span>
-        </div>
-        <div class="footer-logo">
-          <img src="assets/ecolab-logo-white-svg.svg" alt="Ecolab Logo" />
-        </div>
-      </div>
-    </mat-toolbar>
+    
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -1,13 +1,13 @@
 .dashboard-container {
   display: flex;
   flex-direction: column;
-  padding-top: 64px; /* Space for the main fixed header */
+  padding-top:60px;
   padding-bottom: 64px; /* Space for the main fixed footer */
 }
 
 .dashboard-toolbar {
-  background-color: white;
-  color: rgba(0, 0, 0, 0.87); // Default text color for light backgrounds
+  background-color: rgba(241, 244, 249, 0.897);
+  color: rgba(213, 223, 238, 0.87); // Default text color for light backgrounds
   display: flex;
   align-items: center;
   //padding: 0 16px;
@@ -15,7 +15,7 @@
   // Target all mat-button elements directly inside the toolbar
   .mdc-button.mat-mdc-button {
     margin: 0 8px;
-    background-color: #eeeeee; // Grey background
+    background-color: #f6f7f8; // Grey background
     color: black; // Black text
 
     // Ensure the icon inside the button is also black
@@ -29,16 +29,28 @@
   }
 
   .search-bar {
-    width: 400px;
+    width: 450px;
     margin: 0 16px;
+    display: flex;
+    align-items: center;
+    height: 50px;
+
     // The following styles help to vertically align the outline form field in the toolbar
-    .mat-mdc-form-field-subscript-wrapper {
-      display: none;
+    .mat-mdc-form-field {
+      height: 50px; // Match toolbar height
+      display: flex;
+      align-items: center;
+      
     }
+
 
     .mat-mdc-text-field-wrapper {
       background-color: #f0f2f5; // A light grey for the search input background
       border-radius: 4px;
+      height: 10px; // Adjust as needed for input vertical alignment
+      display: flex;
+      align-items: center;
+      
     }
   }
 }
@@ -92,4 +104,27 @@ table {
 
 ::ng-deep .assets-menu .mdc-list-item__primary-text {
   font-size: 8px; // Default is 16px
+}
+
+.footer-bar {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 56px;
+  background-color: #2997e3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  z-index: 100;
+  border-top: 1px solid #1976d2; // Optional: darker blue border
+}
+
+.footer-title {
+  text-align: left;
+  width: 100%;
+  padding-left: 32px;
 }

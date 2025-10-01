@@ -6,20 +6,26 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { CommonModule, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
     CommonModule,
-    NgIf,
+    
     ReactiveFormsModule,
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    
+
   ],
   templateUrl: './login.component.html', // This path is now relative to the new folder
   styleUrls: ['./login.component.scss'],   // This path is now relative to the new folder
@@ -54,4 +60,6 @@ export class LoginComponent implements OnInit {
     const ssoUser = 'sso.user@ecolab.com';
     this.router.navigate(['/dashboard'], { state: { username: ssoUser.split('@')[0] } });
   }
+
+currentYear = new Date().getFullYear();
 }

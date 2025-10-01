@@ -1,3 +1,32 @@
+.header {
+  display: flex;
+  align-items: center;
+  height: 56px;
+  min-height: 56px;
+  padding: 0 24px;
+  background-color: #2997e3 !important; // Use the same blue as dashboard
+  color: #fff !important;
+  position: relative;
+}
+
+.header img {
+  height: 32px;
+  margin-right: 16px;
+}
+
+.toolbar-title {
+  flex: 1;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  width: 400px; // Match your card's max-width
+  text-align: center;
+}
+
 .login-container {
   display: flex;
   justify-content: center;
@@ -29,4 +58,27 @@ mat-form-field {
   color: var(--mat-sys-error);
   margin-bottom: 1rem;
   text-align: center;
+}
+
+.footer-bar {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 56px;
+  background-color: #2997e3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  z-index: 100;
+  border-top: 1px solid #1976d2; // Optional: darker blue border
+}
+
+.footer-title {
+  text-align: left;
+  width: 100%;
+  padding-left: 32px;
 }
