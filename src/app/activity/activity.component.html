@@ -1,46 +1,51 @@
+<mat-toolbar class="header">
+  <span><img src="assets/ecolab-logo-white-svg.svg" alt="Ecolab Logo" /></span>
+  <span class="toolbar-title">Activity</span>
+</mat-toolbar>
+
 <div class="activity-container">
-  <div class="header">
-    <div class="header-left">
-      <button mat-icon-button (click)="back()" aria-label="Back to dashboard">
-        <mat-icon>arrow_back</mat-icon>
-      </button>
-    </div>
-
-    <!-- <div class="header-center">
-      <h1>Activity Dashboard</h1>
-    </div> -->
-
-    <div class="header-right">
-      <button mat-icon-button (click)="onRefresh()" aria-label="Refresh stats">
-        <mat-icon>refresh</mat-icon>
-      </button>
-    </div>
-  </div>
-
   <ng-container *ngIf="stats$ | async as stats; else noStats">
-    <div class="stats-cards">
-      <mat-card class="stat-card uploaded">
-        <mat-card-header>
-          <div mat-card-avatar class="card-icon">📤</div>
-          <mat-card-title>Records Uploaded</mat-card-title>
-        </mat-card-header>
+    <div class="stats-wrapper">
+      <mat-card class="stats-meta-card">
         <mat-card-content>
-          <p class="stat-number">{{ stats.uploaded }}</p>
+          <div class="stats-meta">
+            <div class="user">User: <span class="meta-value">{{ stats.userName }}</span></div>
+            <div class="date">Date: <span class="meta-value">{{ stats.date }}</span></div>
+          </div>
         </mat-card-content>
       </mat-card>
 
-      <mat-card class="stat-card deleted">
-        <mat-card-header>
-          <div mat-card-avatar class="card-icon">🗑️</div>
-          <mat-card-title>Records Deleted</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <p class="stat-number">{{ stats.deleted }}</p>
-        </mat-card-content>
-      </mat-card>
+      <div class="stats-cards centered">
+        <mat-card class="stat-card uploaded">
+          <mat-card-header>
+            <div mat-card-avatar class="card-icon">📤</div>
+            <mat-card-title>Records Uploaded</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p class="stat-number">{{ stats.uploaded }}</p>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="stat-card deleted">
+          <mat-card-header>
+            <div mat-card-avatar class="card-icon">🗑️</div>
+            <mat-card-title>Records Deleted</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p class="stat-number">{{ stats.deleted }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
     </div>
   </ng-container>
   <ng-template #noStats>
     <p class="no-stats">No activity stats available.</p>
   </ng-template>
+</div>
+
+
+
+
+<div class="footer-bar">
+  <span class="footer-title">© Ecolab {{ currentYear || '2025' }}</span>
 </div>

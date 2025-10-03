@@ -2,14 +2,17 @@
 
 .activity-container {
   padding: 20px;
+  /* ensure content sits below fixed header and above footer */
+  padding-top: 80px; /* header height + spacing */
+  padding-bottom: 96px; /* footer height + spacing */
 }
 
-.header {
-  display: grid;
-  grid-template-columns: 48px 1fr 48px; /* left, center, right columns */
-  align-items: center;
-  margin-bottom: 20px;
-}
+// .header {
+//   display: grid;
+//   grid-template-columns: 48px 1fr 48px; /* left, center, right columns */
+//   align-items: center;
+//   margin-bottom: 20px;
+// }
 
 .header-center h1,
 .header h1 {
@@ -33,6 +36,60 @@
   display: flex;
   gap: 20px; /* Space between cards */
   flex-wrap: wrap; /* Allow cards to wrap on smaller screens */
+}
+
+.stats-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center everything horizontally */
+  gap: 12px;
+}
+
+.stats-meta {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.stats-meta .user, .stats-meta .date {
+  font-size: 12px; /* reduced */
+  color: #444;
+}
+
+.meta-value {
+  font-weight: 600;
+  font-size: 12px;
+  margin-left: 6px;
+}
+
+.stats-meta-card {
+  padding: 8px 12px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.stats-cards.centered {
+  justify-content: center;
+  align-items: center;
+}
+
+.stat-card {
+  /* increase height while keeping compact width */
+  flex: 0 0 260px;
+  min-width: 200px;
+  max-width: 300px;
+  height: 180px;
+  padding: 14px;
+  margin-top: 12px;
+}
+
+.stat-number {
+  font-size: 34px;
+}
+
+.stats-cards.centered {
+  justify-content: center;
 }
 
 .stat-card {
@@ -94,4 +151,58 @@
   text-align: center;
   margin-top: 30px;
   color: #777;
+}
+
+.mat-toolbar-row,
+.mat-toolbar-single-row {
+  display: flex !important;
+  box-sizing: border-box !important;
+  padding: 0 16px !important;
+  width: 100% !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  white-space: nowrap !important;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  height: 56px;
+  min-height: 56px;
+  padding: 0 24px;
+  background-color: #2997e3 !important; // Use the same blue as dashboard
+  color: #fff !important;
+  position: relative;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.header-right {
+  width: 48px; /* keep space on right */
+}
+
+.footer-bar {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 56px;
+  background-color: #2997e3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  z-index: 100;
+  border-top: 1px solid #1976d2; // Optional: darker blue border
+}
+
+.footer-title {
+  text-align: left;
+  width: 100%;
+  padding-left: 32px;
 }

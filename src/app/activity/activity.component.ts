@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { Observable } from 'rxjs';
 import { ActivityService, ActivityStats } from './activity.service';
 
@@ -18,6 +19,7 @@ import { ActivityService, ActivityStats } from './activity.service';
     MatButtonModule,
     MatProgressSpinnerModule,
     MatIconModule,
+    MatToolbarModule,
   ],
   templateUrl: './activity.component.html',
   styleUrls: ['./activity.component.scss'],
@@ -27,6 +29,8 @@ export class ActivityComponent implements OnInit {
   private router = inject(Router);
 
   stats$!: Observable<ActivityStats>;
+  // used by the footer in the template
+  currentYear: number = new Date().getFullYear();
 
   ngOnInit(): void {
     this.fetchStats();
