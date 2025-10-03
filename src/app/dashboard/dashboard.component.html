@@ -44,7 +44,7 @@
       More <mat-icon>expand_more</mat-icon>
     </button>
     <mat-menu #moreMenu="matMenu">
-      <button mat-menu-item type="button">Advanced Search</button>
+      <a mat-menu-item [routerLink]="['/advanced-search']" (click)="navigate('/advanced-search')">Advanced Search</a>
       <button mat-menu-item type="button">Saved Searches</button>
       <button mat-menu-item type="button">Search Help</button>
     </mat-menu>
@@ -63,95 +63,15 @@
   </mat-toolbar>
 
   <div class="container">
+    <div class="container">
+      <!-- <div class="advanced-toggle-row">
+        <a mat-stroked-button role="button" [routerLink]="['/advanced-search']" (click)="navigate('/advanced-search')">Advanced Search</a>
+      </div> -->
 
-     <div class="container">
-  
-  <mat-card class="records-card">
-  <mat-card-header>
-    <mat-card-title>Alias Lookup table data.</mat-card-title>
-    <span class="spacer"></span>
-    <mat-paginator #paginator [pageSizeOptions]="[10, 20, 50]" [pageSize]="10" showFirstLastButtons aria-label="Select page of periodic elements"></mat-paginator>
-  </mat-card-header>
+      <app-asset-table [data]="filteredData"></app-asset-table>
 
-  <mat-card-content>
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-        <!-- ID Column -->
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef> ID </th>
-        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-      </ng-container>
-
-      <!-- Alias ID Column -->
-      <ng-container matColumnDef="aliasId">
-        <th mat-header-cell *matHeaderCellDef> Alias ID </th>
-        <td mat-cell *matCellDef="let element"> {{element.aliasId}} </td>
-      </ng-container>
-
-      <!-- Date Column -->
-      <ng-container matColumnDef="date">
-        <th mat-header-cell *matHeaderCellDef> Date </th>
-        <td mat-cell *matCellDef="let element"> {{element.date}} </td>
-      </ng-container>
-
-      <!-- App URL Column -->
-      <ng-container matColumnDef="appUrl">
-        <th mat-header-cell *matHeaderCellDef> App URL </th>
-        <td mat-cell *matCellDef="let element">
-          <a [href]="element.appUrl" target="_blank">{{element.appUrl}}</a>
-        </td>
-      </ng-container>
-
-      <!-- Image Column -->
-      <ng-container matColumnDef="imageUrl">
-        <th mat-header-cell *matHeaderCellDef> Image </th>
-        <td mat-cell *matCellDef="let element">
-          <img [src]="element.imageUrl" alt="{{element.aliasId}}" width="100">
-        </td>
-      </ng-container>
-
-      <!-- Category Column -->
-      <ng-container matColumnDef="category">
-        <th mat-header-cell *matHeaderCellDef> Category </th>
-        <td mat-cell *matCellDef="let element"> {{element.category}} </td>
-      </ng-container>
-
-      <!-- Created By Column -->
-      <ng-container matColumnDef="CreatedBy">
-        <th mat-header-cell *matHeaderCellDef> Created By </th>
-        <td mat-cell *matCellDef="let element"> {{element.CreatedBy}} </td>
-      </ng-container>
-
-      <!-- Created Date Column -->
-      <ng-container matColumnDef="CreatedDate">
-        <th mat-header-cell *matHeaderCellDef> Created Date </th>
-        <td mat-cell *matCellDef="let element"> {{element.CreatedDate}} </td>
-      </ng-container>
-
-      <!-- Modified By Column -->
-<ng-container matColumnDef="ModifiedBy">
-  <th mat-header-cell *matHeaderCellDef> Modified By </th>
-  <td mat-cell *matCellDef="let element"> {{element.ModifiedBy}} </td>
-</ng-container>
-
-<!-- Modified Date Column -->
-<ng-container matColumnDef="ModifiedDate">
-  <th mat-header-cell *matHeaderCellDef> Modified Date </th>
-  <td mat-cell *matCellDef="let element"> {{element.ModifiedDate}} </td>
-</ng-container>
-
-
-      <!-- Header and Row Definitions -->
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  </mat-card-content>
-</mat-card>
-
-
-    <!-- dashboard content (your table, cards, etc.) -->
+    </div>
   </div>
-</div>
 
 <div class="footer-bar">
   <span class="footer-title">© Ecolab {{ currentYear || '2025' }}</span>

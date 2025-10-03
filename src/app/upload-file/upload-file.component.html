@@ -1,12 +1,17 @@
+<mat-toolbar class="header">
+  <span><img src="assets/ecolab-logo-white-svg.svg" alt="Ecolab Logo" /></span>
+  <span class="toolbar-title">Upload File</span>
+</mat-toolbar>
+
 <div class="upload-container">
   <mat-card class="upload-card">
     <mat-card-header>
-      <div class="header-row">
+      <!-- <div class="header-row">
         <mat-card-title>Upload Excel File</mat-card-title>
         <button mat-icon-button class="back-button" (click)="back()" aria-label="Back to dashboard">
           <mat-icon>arrow_back "Back"</mat-icon>
         </button>
-      </div>
+      </div> -->
     </mat-card-header>
     <mat-card-content>
       <div class="upload-actions">
@@ -62,4 +67,8 @@
         </div>
     </mat-card-content>
   </mat-card>
+</div>
+
+<div class="footer-bar">
+  <span class="footer-title">© Ecolab {{ currentYear || '2025' }}</span>
 </div>

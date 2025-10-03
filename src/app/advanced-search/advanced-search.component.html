@@ -1,0 +1,61 @@
+<div class="advanced-search-root">
+<mat-toolbar class="header">
+  <span><img src="assets/ecolab-logo-white-svg.svg" alt="Ecolab Logo" /></span>
+  
+  <span class="toolbar-title">Advanced Search</span>
+</mat-toolbar>
+
+<div class="advanced-search-container">
+  <mat-card class="advanced-search-card">
+    <mat-card-header>
+      <!-- <mat-card-title>Advanced Search</mat-card-title> -->
+    </mat-card-header>
+
+    <mat-card-content [formGroup]="form">
+    <div formArrayName="rules">
+      <div *ngFor="let rule of rules.controls; let i = index" [formGroupName]="i" class="rule-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Attribute</mat-label>
+          <mat-select formControlName="attribute">
+            <mat-option *ngFor="let a of attributes" [value]="a">{{a}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Criteria</mat-label>
+          <mat-select formControlName="criteria">
+            <mat-option *ngFor="let c of criteriaOptions" [value]="c.value">{{c.label}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="value-field">
+          <mat-label>Lookup Value</mat-label>
+          <input matInput formControlName="value" />
+        </mat-form-field>
+
+        <!-- <button mat-icon-button color="warn" type="button" (click)="removeRule(i)" aria-label="Remove rule">
+          <mat-icon>remove_circle</mat-icon>
+        </button> -->
+      </div>
+    </div>
+
+    <div class="actions">
+      <!-- <button mat-stroked-button type="button" (click)="addRule()">Add Rule</button> -->
+      <span class="spacer"></span>
+      <!-- Use the page's default dataset when Search is clicked -->
+      <button mat-flat-button color="primary" type="button" (click)="runSearch(defaultSource)">Search</button>
+    </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div class="results-container">
+  <app-asset-table [data]="lastResults"></app-asset-table>
+</div>
+
+
+<div class="footer-bar">
+  <span class="footer-title">© Ecolab {{ currentYear || '2025' }}</span>
+</div>
+
+</div>

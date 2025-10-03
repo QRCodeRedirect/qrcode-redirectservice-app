@@ -9,6 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Router, RouterLink } from '@angular/router';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { AssetTableComponent } from '../asset-table/asset-table.component';
+import { CommonModule } from '@angular/common';
 
 // export interface AssetRecord {
 //   id: number;
@@ -305,17 +307,24 @@ const ELEMENT_DATA: AssetRecord[] = [
     MatInputModule,
     MatTableModule,
     MatPaginatorModule,
-    RouterLink],
+  RouterLink,
+  CommonModule,
+    AssetTableComponent
+  ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements AfterViewInit, OnInit {
   welcomeMessage: string = '';
   currentYear = new Date().getFullYear();
+  showAdvanced = false;
+  // raw data used as source for searches
+  rawData: AssetRecord[] = ELEMENT_DATA.slice();
+  filteredData: AssetRecord[] = ELEMENT_DATA.slice();
   
 
   constructor(private router: Router) {
-    this.dataSource = new MatTableDataSource(ELEMENT_DATA);
+    this.dataSource = new MatTableDataSource(this.filteredData);
     // filter predicate to search across aliasId, appUrl, imageUrl, category
     this.dataSource.filterPredicate = (data: AssetRecord, filter: string) => {
       const f = (filter || '').trim().toLowerCase();
@@ -367,7 +376,24 @@ export class DashboardComponent implements AfterViewInit, OnInit {
   }
 
   applyFilter(value: string) {
-    this.dataSource.filter = (value || '').trim().toLowerCase();
+    const f = (value || '').trim().toLowerCase();
+    this.filteredData = this.rawData.filter(d =>
+      (d.aliasId || '').toLowerCase().includes(f) ||
+      (d.appUrl || '').toLowerCase().includes(f) ||
+      (d.imageUrl || '').toLowerCase().includes(f) ||
+      (d.category || '').toLowerCase().includes(f)
+    );
+    this.dataSource.data = this.filteredData;
+    if (this.paginator) this.paginator.firstPage();
+  }
+
+  toggleAdvanced() {
+    this.showAdvanced = !this.showAdvanced;
+  }
+
+  onAdvancedResults(results: AssetRecord[]) {
+    this.filteredData = results || [];
+    this.dataSource.data = this.filteredData;
     if (this.paginator) this.paginator.firstPage();
   }
 

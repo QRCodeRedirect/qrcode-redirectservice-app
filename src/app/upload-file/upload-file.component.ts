@@ -6,6 +6,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
 import * as XLSX from 'xlsx';
@@ -24,6 +25,7 @@ export interface UrlRecord {
     MatCardModule,
     MatTableModule,
     MatPaginatorModule,
+    MatToolbarModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
@@ -37,6 +39,8 @@ export class UploadFileComponent implements AfterViewInit {
   dataSource = new MatTableDataSource<UrlRecord>();
   recordCount = 0;
   filterValue: string = '';
+  // used by the footer in the template
+  currentYear: number = new Date().getFullYear();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   constructor(private router: Router) {
