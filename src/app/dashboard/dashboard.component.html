@@ -12,7 +12,10 @@
       </button>
       <mat-menu #assetsMenu="matMenu" xPosition="after">
         <!-- Redirects to /upload-file as a separate page -->
-        <a mat-menu-item [routerLink]="['/upload-file']" (click)="navigate('/upload-file')">
+        <!--<a mat-menu-item [routerLink]="['/upload-file']" (click)="navigate('/upload-file')">
+          Upload File
+        </a> -->
+        <a mat-menu-item class="upload-file-menu-item" [routerLink]="['/upload-file']" (click)="navigate('/upload-file')">
           Upload File
         </a>
       </mat-menu>

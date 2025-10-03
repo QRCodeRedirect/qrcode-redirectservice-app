@@ -1,12 +1,43 @@
+.header {
+  display: flex;
+  align-items: center;
+  height: 56px;
+  min-height: 56px;
+  padding: 0 24px;
+  background-color: #2997e3 !important; // Use the same blue as dashboard
+  color: #fff !important;
+  position: relative;
+}
+
+.header img {
+  height: 32px;
+  margin-right: 16px;
+}
+
+.toolbar-title {
+  flex: 1;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  width: 400px; // Match your card's max-width
+  text-align: center;
+  text-shadow: 0 10px 12px rgba(19, 19, 19, 0.25);
+
+}
+
 .dashboard-container {
   display: flex;
   flex-direction: column;
-  padding-top:60px;
+  padding-top:0px;
   padding-bottom: 64px; /* Space for the main fixed footer */
 }
 
 .dashboard-toolbar {
-  background-color: rgba(241, 244, 249, 0.897);
+  background-color: rgb(255, 255, 255);
   color: rgba(213, 223, 238, 0.87); // Default text color for light backgrounds
   display: flex;
   align-items: center;
@@ -27,6 +58,8 @@
   .spacer {
     flex: 1 1 auto;
   }
+
+ 
 
   .search-bar {
     width: 450px;
@@ -53,6 +86,20 @@
       
     }
   }
+}
+
+
+
+
+
+.upload-file-menu-item {
+  font-weight: 100;
+  color: #151414 !important;
+  font-size: 20px;
+  letter-spacing: 1px;
+  border-radius: 10px;
+  background-color: rgb(100, 178, 252);
+  box-shadow: none;
 }
 
 // .records-card {
@@ -105,6 +152,18 @@ table {
 ::ng-deep .assets-menu .mdc-list-item__primary-text {
   font-size: 8px; // Default is 16px
 }
+
+
+::ng-deep .cdk-overlay-pane,
+::ng-deep .mat-mdc-menu-panel,
+::ng-deep .mat-mdc-menu-content {
+  background-color: rgb(255, 255, 255) !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+
+
 
 .footer-bar {
   position: fixed;
