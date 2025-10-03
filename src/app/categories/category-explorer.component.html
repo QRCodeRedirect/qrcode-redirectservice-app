@@ -1,0 +1,26 @@
+<div class="explorer-wrapper">
+  <div class="explorer-card">
+    <h1 class="page-title">Category Explorer</h1>
+
+    <mat-accordion class="category-accordion" multi>
+      <mat-expansion-panel *ngFor="let cat of categories" class="category-panel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ cat.name }}
+          </mat-panel-title>
+          <mat-panel-description *ngIf="cat.subcategories && cat.subcategories.length">
+            {{ cat.subcategories.length }} sub
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="sub-list" *ngIf="cat.subcategories && cat.subcategories.length; else noSubs">
+          <div class="sub-item" *ngFor="let sub of cat.subcategories">• {{ sub }}</div>
+        </div>
+
+        <ng-template #noSubs>
+          <div class="no-sub">No subcategories</div>
+        </ng-template>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>

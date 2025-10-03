@@ -1,0 +1,142 @@
+.advanced-search-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* ensure page takes full height so footer can be pushed down */
+}
+
+.advanced-search-card {
+  margin: 16px 0;
+}
+
+.advanced-search-container {
+  padding: 16px;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  /* space below fixed toolbar */
+  margin-top: 88px;
+}
+
+.rule-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.value-field {
+  flex: 1;
+}
+
+/* Desktop: give form fields sensible widths so they align horizontally */
+.rule-row mat-form-field {
+  flex: 0 0 220px; /* attribute and criteria fields */
+}
+
+.rule-row .value-field {
+  flex: 1 1 auto; /* value field grows */
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.results-container {
+  margin-top: 16px;
+  max-width: 1200px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.header img {
+  height: 32px;
+}
+
+.footer-bar {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 56px;
+  background-color: #2997e3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  z-index: 100;
+  border-top: 1px solid #1976d2; // Optional: darker blue border
+}
+
+/* make the toolbar visually fixed and ensure content sits below it */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  z-index: 1000;
+  background: #1976d2; /* keep Material blue or inherit mat styles */
+  color: white;
+  padding: 0 16px;
+}
+
+/* logo on the left */
+.header > span:first-child {
+  position: absolute;
+  left: 16px;
+  display: flex;
+  align-items: center;
+}
+
+/* center the title */
+.toolbar-title {
+  margin: 0 auto;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.footer-bar {
+  margin-top: auto; /* push footer to bottom */
+  padding: 12px 16px;
+  background: #f5f5f5;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  text-align: center;
+}
+
+.footer-title {
+  text-align: left;
+  width: 100%;
+  padding-left: 32px;
+}
+
+/* small screens adjustments */
+@media (max-width: 600px) {
+  .rule-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .advanced-search-container, .results-container {
+    padding: 12px;
+  }
+  /* On small screens make the toolbar height slightly larger and ensure title doesn't collide */
+  .header {
+    height: 72px;
+    padding-top: 8px;
+  }
+  .advanced-search-container { margin-top: 92px; }
+
+  .dashboard-container {
+  display: flex;
+  flex-direction: column;
+  padding-top:60px;
+  padding-bottom: 64px; /* Space for the main fixed footer */
+}
+}

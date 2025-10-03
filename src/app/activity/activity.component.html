@@ -4,43 +4,68 @@
 </mat-toolbar>
 
 <div class="activity-container">
-  <ng-container *ngIf="stats$ | async as stats; else noStats">
-    <div class="stats-wrapper">
-      <mat-card class="stats-meta-card">
-        <mat-card-content>
-          <div class="stats-meta">
-            <div class="user">User: <span class="meta-value">{{ stats.userName }}</span></div>
-            <div class="date">Date: <span class="meta-value">{{ stats.date }}</span></div>
-          </div>
-        </mat-card-content>
-      </mat-card>
-
-      <div class="stats-cards centered">
-        <mat-card class="stat-card uploaded">
-          <mat-card-header>
-            <div mat-card-avatar class="card-icon">📤</div>
-            <mat-card-title>Records Uploaded</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <p class="stat-number">{{ stats.uploaded }}</p>
-          </mat-card-content>
-        </mat-card>
-
-        <mat-card class="stat-card deleted">
-          <mat-card-header>
-            <div mat-card-avatar class="card-icon">🗑️</div>
-            <mat-card-title>Records Deleted</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <p class="stat-number">{{ stats.deleted }}</p>
-          </mat-card-content>
-        </mat-card>
+  <mat-card class="activity-card">
+    <mat-card-header>
+      <mat-card-title>Activity Grid</mat-card-title>
+      <mat-card-subtitle>Recent user activity</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="table-controls">
+        <mat-form-field appearance="outline" class="activity-filter">
+          <mat-label>Filter</mat-label>
+          <input matInput (input)="applyFilter($any($event.target).value)" placeholder="Search user or date" />
+        </mat-form-field>
       </div>
-    </div>
-  </ng-container>
-  <ng-template #noStats>
-    <p class="no-stats">No activity stats available.</p>
-  </ng-template>
+
+      <div class="table-responsive">
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z2">
+
+          <!-- User Column -->
+          <ng-container matColumnDef="user">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> User </th>
+            <td mat-cell *matCellDef="let element"> {{element.user}} </td>
+          </ng-container>
+
+          <!-- Login Time Column -->
+          <ng-container matColumnDef="loginTime">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Login Time </th>
+            <td mat-cell *matCellDef="let element"> {{element.loginTime}} </td>
+          </ng-container>
+
+          <!-- Logout Time Column -->
+          <ng-container matColumnDef="logoutTime">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Logout Time </th>
+            <td mat-cell *matCellDef="let element"> {{element.logoutTime}} </td>
+          </ng-container>
+
+          <!-- Files Uploaded Column -->
+          <ng-container matColumnDef="filesUploaded">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Files Uploaded </th>
+            <td mat-cell *matCellDef="let element"> {{element.filesUploaded}} </td>
+          </ng-container>
+
+          <!-- Files Deleted Column -->
+          <ng-container matColumnDef="filesDeleted">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Files Deleted </th>
+            <td mat-cell *matCellDef="let element"> {{element.filesDeleted}} </td>
+          </ng-container>
+
+          <!-- Created Date Column -->
+          <ng-container matColumnDef="createdDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Created Date </th>
+            <td mat-cell *matCellDef="let element"> {{element.createdDate}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+
+      <div class="paginator-wrapper">
+        <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons aria-label="Select page of records"></mat-paginator>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>
 
 
