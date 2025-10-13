@@ -1,0 +1,168 @@
+<!-- Header with logo and title -->
+<mat-toolbar class="header">
+  <span><img src="assets/ecolab-logo-white-svg.svg" alt="Ecolab Logo" /></span>
+  <span class="toolbar-title">Generate QR Code</span>
+</mat-toolbar>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<!-- Main container with left and right panels -->
+<div class="container">
+  <!-- Function Type Selection: Short URL or Redirect URL -->
+  <div class="mode-selector-horizontal">
+    <label><input type="radio" name="functionType" [(ngModel)]="selectedFunctionType" value="shortUrl" (change)="onFunctionTypeChange()">Short URL & Redirect Url</label>
+    <label><input type="radio" name="functionType" [(ngModel)]="selectedFunctionType" value="redirectUrl" (change)="onFunctionTypeChange()">Redirect URL</label>
+  </div>
+
+  <!-- Left Panel: Input sections based on function type and mode -->
+  <div class="left-panel">
+    <!-- Mode Selection: Manual Entry or File Upload -->
+    <div class="mode-selector-horizontal">
+      <label><input type="radio" name="inputMode" [(ngModel)]="selectedMode" value="manualEntry" (change)="onModeChange()">Manual Entry</label>
+      <label><input type="radio" name="inputMode" [(ngModel)]="selectedMode" value="fileUpload" (change)="onModeChange()">File Upload</label>
+    </div>
+    
+<br>
+
+    <!-- Short URL Mode -->
+    <div *ngIf="selectedFunctionType === 'shortUrl'">
+      <!-- Manual Entry Mode: Show textareas for Short and Redirect URLs -->
+      <div *ngIf="selectedMode === 'manualEntry'">
+        <div class="form-group">
+          <label for="short-url">Short URs</label>
+          <textarea id="short-url" [(ngModel)]="selectedShortUrl" rows="3" cols="50" [class.invalid]="isShortUrlInvalid" placeholder="Enter short URLs, one per line"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="redirect-url">Redirect URLs</label>
+          <textarea id="redirect-url" [(ngModel)]="selectedRedirectUrl" rows="3" cols="50" [class.invalid]="isRedirectUrlInvalid" placeholder="Enter redirect URLs, one per line"></textarea>
+        </div>
+      </div>
+
+      <!-- File Upload Mode: Show file inputs for Short and Redirect URLs -->
+      <div *ngIf="selectedMode === 'fileUpload'">
+        <div class="form-group">
+          <label for="short-url-file">Short URLs File</label>
+          <input type="file" id="short-url-file" (change)="onShortUrlFileChange($event)" accept=".csv,.xlsx" [class.invalid]="isShortUrlFileInvalid">
+        </div>
+        <div class="form-group">
+          <label for="redirect-url-file">Redirect URLs File</label>
+          <input type="file" id="redirect-url-file" (change)="onRedirectUrlFileChange($event)" accept=".csv,.xlsx" [class.invalid]="isRedirectUrlFileInvalid">
+        </div>
+      </div>
+    </div>
+
+    <!-- Redirect URL Mode -->
+    <div *ngIf="selectedFunctionType === 'redirectUrl'">
+      <!-- Quantity Input -->
+      <div class="form-group">
+        <label for="quantity">Quantity</label>
+        <input type="number" id="quantity" [(ngModel)]="quantity" (ngModelChange)="onQuantityChange()" min="1" placeholder="Enter the Quantity">
+      </div>
+
+      <!-- Manual Entry Mode: Show textarea for Redirect URLs -->
+      <div *ngIf="selectedMode === 'manualEntry'">
+        <div class="form-group">
+          <label for="redirect-url">Redirect URLs</label>
+          <textarea id="redirect-url" [(ngModel)]="selectedRedirectUrl" rows="3" cols="50" [class.invalid]="isRedirectUrlInvalid" placeholder="Enter redirect URLs, one per line"></textarea>
+        </div>
+      </div>
+
+      <!-- File Upload Mode: Show file input for Redirect URLs -->
+      <div *ngIf="selectedMode === 'fileUpload'">
+        <div class="form-group">
+          <label for="redirect-url-file">Redirect URLs File</label>
+          <input type="file" id="redirect-url-file" (change)="onRedirectUrlFileChange($event)" accept=".csv,.xlsx" [class.invalid]="isRedirectUrlFileInvalid">
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons: Save and Export, always visible -->
+    <div class="button-container">
+      <button class="save-button" (click)="onSave()">Save</button>
+      <button class="export-button" (click)="exportData()" [disabled]="combinedFileData.length === 0">Export</button>
+    </div>
+  </div>
+
+  <!-- Modal Popup for displaying saved data -->
+  <div class="modal-overlay" *ngIf="showFilesModal" (click)="closeFilesModal()"></div>
+  <div class="modal-popup" *ngIf="showFilesModal" role="dialog" aria-modal="true" aria-labelledby="filesModalTitle">
+    <button class="close-button" (click)="closeFilesModal()" aria-label="Close">&times;</button>
+    <h2 id="filesModalTitle">{{ selectedFunctionType === 'shortUrl' ? 'Saved Short URLs' : 'Saved Redirect URLs' }}</h2>
+    <div class="modal-content">
+      <div class="button-container">
+      <button class="save-button" (click)="onSave()">Save</button>
+      <button class="export-button" (click)="exportData()" [disabled]="combinedFileData.length === 0">Export</button>
+      </div>
+      <div *ngIf="combinedFileData.length > 0; else noDataMessage" style="overflow-x:auto;">
+        <table class="preview-table">
+          <thead>
+            <tr>
+              <th>Sno</th>
+              <th>{{ selectedFunctionType === 'shortUrl' ? 'Short URL' : 'Alias ID' }}</th>
+              <th>Redirect URL</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of pagedCombinedFileData; let i = index">
+              <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+              <td>{{ item.shortUrl }}</td>
+              <td>{{ item.redirectUrl }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="paging-controls">
+          <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+          <span>Page {{ currentPage }} of {{ totalPages }}</span>
+          <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+        </div>
+      </div>
+      <ng-template #noDataMessage>
+        <p style="text-align: center; padding: 20px; color: #666;">No data saved. Please enter or upload {{ selectedFunctionType === 'shortUrl' ? 'Short URLs and Redirect URLs' : 'Redirect URLs' }}.</p>
+      </ng-template>
+    </div>
+  </div>
+
+  <!-- Right Panel: Division, Application, QR Code settings -->
+  <div class="right-panel">
+    <div class="image-selector">
+      <label>Division</label>
+      <select [(ngModel)]="selectedDivision">
+        <option value="Healthcare">Healthcare</option>
+        <option value="Institutional">Institutional</option>
+        <option value="QSR">QSR</option>
+      </select>
+    </div>
+    <div class="image-selector">
+      <label>Application</label>
+      <select [(ngModel)]="selectedApplication">
+        <option value="Digital Kitchen">Digital Kitchen</option>
+        <option value="DishIQ">DishIQ</option>
+        <option value="Kitchen OS">Kitchen OS</option>
+      </select>
+    </div>
+    <div class="image-selector">
+      <label>QR Code - Type</label>
+      <select [(ngModel)]="selectedQrCodeType">
+        <option value="Single URL Re-direct">Single URL Re-direct</option>
+        <option value="Undefined">Undefined</option>
+      </select>
+    </div>
+    <div class="image-selector">
+      <label>QR Code - Qty</label>
+      <select [(ngModel)]="selectedQrCodeQty">
+        <option value="Single">Single</option>
+        <option value="Multiple">Multiple</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer-bar">
+  <span class="footer-title">© Ecolab {{ currentYear || '2025' }}</span>
+</div>

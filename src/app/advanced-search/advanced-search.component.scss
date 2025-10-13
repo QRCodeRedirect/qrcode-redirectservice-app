@@ -10,6 +10,7 @@
 
 .advanced-search-container {
   padding: 16px;
+  padding-bottom: 72px; /* space for fixed footer */
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
@@ -51,9 +52,9 @@
   margin-right: auto;
 }
 
-.header img {
-  height: 32px;
-}
+// .header img {
+//   height: 32px;
+// }
 
 .footer-bar {
   position: fixed;
@@ -64,7 +65,7 @@
   background-color: #2997e3;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   color: #fff;
   font-size: 16px;
   font-weight: 500;
@@ -74,18 +75,21 @@
 
 /* make the toolbar visually fixed and ensure content sits below it */
 .header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 64px;
   display: flex;
   align-items: center;
-  z-index: 1000;
-  background: #1976d2; /* keep Material blue or inherit mat styles */
-  color: white;
-  padding: 0 16px;
+  height: 56px;
+  min-height: 56px;
+  padding: 0 24px;
+  background-color: #2997e3 !important; // Use the same blue as dashboard
+  color: #fff !important;
+  position: relative;
 }
+
+.header img {
+  height: 32px;
+  margin-right: 16px;
+}
+
 
 /* logo on the left */
 .header > span:first-child {
@@ -100,14 +104,6 @@
   margin: 0 auto;
   font-weight: 600;
   font-size: 1.1rem;
-}
-
-.footer-bar {
-  margin-top: auto; /* push footer to bottom */
-  padding: 12px 16px;
-  background: #f5f5f5;
-  border-top: 1px solid rgba(0,0,0,0.06);
-  text-align: center;
 }
 
 .footer-title {
@@ -126,11 +122,7 @@
   .advanced-search-container, .results-container {
     padding: 12px;
   }
-  /* On small screens make the toolbar height slightly larger and ensure title doesn't collide */
-  .header {
-    height: 72px;
-    padding-top: 8px;
-  }
+ 
   .advanced-search-container { margin-top: 92px; }
 
   .dashboard-container {
