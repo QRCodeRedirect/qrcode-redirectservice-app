@@ -6,6 +6,7 @@ import { UploadFileComponent } from './upload-file/upload-file.component';
 import { ActivityComponent } from './activity/activity.component';
 import { CategoriesComponent } from './categories/category-explorer.component';
 import { AdvancedSearchComponent } from './advanced-search/advanced-search.component';
+import { GenerateqrcodeComponent } from './generateqrcode/generateqrcode.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -15,6 +16,7 @@ export const routes: Routes = [
   { path: 'advanced-search', component: AdvancedSearchComponent },
   { path: 'categories', component: CategoriesComponent },
   { path: 'activity', component: ActivityComponent },
+  { path: 'generate-qrcode', component: GenerateqrcodeComponent },
 
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/login' } // Wildcard route for a 404 or redirect

@@ -2,6 +2,23 @@
   margin: 16px 0;
 }
 
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 16px;
+}
+
+.search-field {
+  width: 300px;
+  flex-shrink: 0;
+}
+
+.paginator-wrapper {
+  flex: 1;
+}
+
 table {
   width: 100%;
 }

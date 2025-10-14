@@ -10,11 +10,14 @@
       <mat-card-subtitle>Recent user activity</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <div class="table-controls">
+      <div class="table-header">
         <mat-form-field appearance="outline" class="activity-filter">
           <mat-label>Filter</mat-label>
           <input matInput (input)="applyFilter($any($event.target).value)" placeholder="Search user or date" />
         </mat-form-field>
+        <div class="paginator-wrapper">
+          <mat-paginator [pageSizeOptions]="[10, 25, 100]" showFirstLastButtons aria-label="Select page of records"></mat-paginator>
+        </div>
       </div>
 
       <div class="table-responsive">
@@ -59,10 +62,6 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-      </div>
-
-      <div class="paginator-wrapper">
-        <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons aria-label="Select page of records"></mat-paginator>
       </div>
     </mat-card-content>
   </mat-card>

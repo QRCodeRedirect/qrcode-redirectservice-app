@@ -59,7 +59,22 @@
     flex: 1 1 auto;
   }
 
- 
+  .header {
+  display: flex;
+  align-items: center;
+  height: 56px;
+  min-height: 56px;
+  padding: 0 24px;
+  background-color: #2997e3 !important; // Use the same blue as dashboard
+  color: #fff !important;
+  position: relative;
+}
+
+.header img {
+  height: 32px;
+  margin-right: 16px;
+}
+
 
   .search-bar {
     width: 450px;
