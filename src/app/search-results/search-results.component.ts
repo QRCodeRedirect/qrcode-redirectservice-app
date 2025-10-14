@@ -20,7 +20,7 @@ import { MatCardModule } from '@angular/material/card';
   `,
   styles: [
     `
-      .search-results { padding: 24px; }
+      .search-results { padding: 14px; }  //24
     `
   ]
 })
