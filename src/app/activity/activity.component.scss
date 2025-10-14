@@ -7,6 +7,8 @@
   padding-bottom: 96px; /* footer height + spacing */
 }
 
+
+
 // .header {
 //   display: grid;
 //   grid-template-columns: 48px 1fr 48px; /* left, center, right columns */
@@ -175,13 +177,24 @@
   position: relative;
 }
 
-.header-left {
-  display: flex;
-  align-items: center;
+.header img {
+  height: 32px;
+  margin-right: 16px;
 }
 
-.header-right {
-  width: 48px; /* keep space on right */
+.toolbar-title {
+  flex: 1;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  width: 400px; // Match your card's max-width
+  text-align: center;
+  text-shadow: 0 10px 12px rgba(19, 19, 19, 0.25);
+
 }
 
 .footer-bar {

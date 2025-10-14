@@ -20,18 +20,32 @@
   left: 50%;
   transform: translateX(-50%);
   color: #fff;
-  font-size: 22px;
+  font-size: 26px;
   font-weight: 600;
   letter-spacing: 1px;
   width: 400px; // Match your card's max-width
   text-align: center;
+  text-shadow: 0 10px 12px rgba(19, 19, 19, 0.25);
+
 }
 
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: calc(100vh - 76px); // 56px is the header height
+  height: auto;
+  //height: 100vh;
+  padding-top:0px;
+  //padding-bottom: 50px;
+  
+}
+
+.login-container mat-card-title {
+  font-size: 20px;
+  text-shadow: 0 2px 8px rgba(248, 244, 244, 0.18);
+  letter-spacing: 1px;
+  font-weight: bold;
 }
 
 mat-card {
