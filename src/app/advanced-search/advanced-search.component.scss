@@ -18,6 +18,8 @@
   margin-top: 88px;
 }
 
+
+
 .rule-row {
   display: flex;
   align-items: center;
@@ -90,20 +92,36 @@
   margin-right: 16px;
 }
 
-
-/* logo on the left */
-.header > span:first-child {
+.toolbar-title {
+  flex: 1;
   position: absolute;
-  left: 16px;
-  display: flex;
-  align-items: center;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  width: 400px; // Match your card's max-width
+  text-align: center;
+  text-shadow: 0 10px 12px rgba(19, 19, 19, 0.25);
+
 }
 
-/* center the title */
-.toolbar-title {
-  margin: 0 auto;
-  font-weight: 600;
-  font-size: 1.1rem;
+.footer-bar {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 56px;
+  background-color: #2997e3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  z-index: 100;
+  border-top: 1px solid #1976d2; // Optional: darker blue border
 }
 
 .footer-title {

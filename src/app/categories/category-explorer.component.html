@@ -1,26 +1,23 @@
-<div class="explorer-wrapper">
-  <div class="explorer-card">
-    <h1 class="page-title">Category Explorer</h1>
+<mat-toolbar class="header">
+  <span><img src="assets/ecolab-logo-white-svg.svg" alt="Ecolab Logo" /></span>
+  <span class="toolbar-title">Categories</span>
+</mat-toolbar>
 
-    <mat-accordion class="category-accordion" multi>
-      <mat-expansion-panel *ngFor="let cat of categories" class="category-panel">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            {{ cat.name }}
-          </mat-panel-title>
-          <mat-panel-description *ngIf="cat.subcategories && cat.subcategories.length">
-            {{ cat.subcategories.length }} sub
-          </mat-panel-description>
-        </mat-expansion-panel-header>
+<div class="categories-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Categories</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item *ngFor="let category of categories">
+          <div class="category-title">{{ category }}</div>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
 
-        <div class="sub-list" *ngIf="cat.subcategories && cat.subcategories.length; else noSubs">
-          <div class="sub-item" *ngFor="let sub of cat.subcategories">• {{ sub }}</div>
-        </div>
-
-        <ng-template #noSubs>
-          <div class="no-sub">No subcategories</div>
-        </ng-template>
-      </mat-expansion-panel>
-    </mat-accordion>
+  <div class="footer-bar">
+    <span class="footer-title">© Ecolab {{ currentYear || '2025' }}</span>
   </div>
 </div>
