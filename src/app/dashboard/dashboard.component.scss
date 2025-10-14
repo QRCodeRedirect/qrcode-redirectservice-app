@@ -47,7 +47,7 @@
   .mdc-button.mat-mdc-button {
     margin: 0 8px;
     background-color: #f6f7f8; // Grey background
-    color: black; // Black text
+    color: rgb(26, 98, 200); // Black text
 
     // Ensure the icon inside the button is also black
     .mat-icon {
@@ -142,7 +142,10 @@ table {
   // align-items: center; // This was causing vertical centering
   // min-height: 100vh; // This was making the container take full height
   padding-top: 20px; // Space above the card, as previously set
+
 }
+
+
 
 // Styles for the smaller assets menu
 ::ng-deep .assets-menu .mat-mdc-menu-item {
