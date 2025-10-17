@@ -22,7 +22,7 @@
 
       <!-- Redirects to /activity as a separate page -->
       <a mat-button [routerLink]="['/activity']" (click)="navigate('/activity')">Activity</a>
-
+      <a mat-button [routerLink]="['/batch']" (click)="navigateBatch('/batch')">Batch</a>
       
     </div>
 
@@ -70,7 +70,13 @@
   <mat-card-header>
     <mat-card-title>Alias Lookup table data.</mat-card-title>
     <span class="spacer"></span>
-    <mat-paginator #paginator [pageSizeOptions]="[10, 20, 50]" [pageSize]="10" showFirstLastButtons aria-label="Select page of periodic elements"></mat-paginator>
+    <div class="white-background-button" >
+    <button mat-icon-button (click)="openDailog()" class="MatPreferences">Preferances
+      <mat-icon style="font-size: 15px;">settings</mat-icon>
+    </button>
+    </div>
+    <mat-paginator class="MatPage" #paginator [pageSizeOptions]="[10, 20, 50]" [pageSize]="10" showFirstLastButtons aria-label="Select page of periodic elements"></mat-paginator>
+  
   </mat-card-header>
 
   <mat-card-content>

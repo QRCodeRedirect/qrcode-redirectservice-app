@@ -1,0 +1,18 @@
+<p class="Title">Add Preferences</p>
+<mat-dialog-content>
+    <mat-list-item >
+      <div  cdkDropList (cdkDropListDropped)="drop($event)" class="example-list">
+      <div class="display" *ngFor="let item of receivedArray; let i = index" cdkDrag>
+        {{item}}
+         <mat-icon (click)="removeItem(i)" class="deletebtn">delete</mat-icon>
+      </div>
+    </div>
+ </mat-list-item> 
+</mat-dialog-content>
+<mat-dialog-actions> 
+   <button mat-button (click)="openList()">Add</button>    
+  <button mat-button [mat-dialog-close]="true">Save</button>
+  <button mat-button mat-dialog-close (click)="ClearAll()">Close</button>
+</mat-dialog-actions>
+
+

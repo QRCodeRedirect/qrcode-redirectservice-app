@@ -1,0 +1,46 @@
+section {
+  display: flex;
+  align-items: center;
+}
+
+.example-label {
+  font-size: 14px;
+  margin: 0 16px 0 8px;
+  min-width: 120px;
+}
+
+.example-button-row {
+  max-width: 600px;
+}
+
+.example-button-row .mat-mdc-button-base {
+  margin: 8px 8px 8px 0;
+}
+
+.example-flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.Title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 28px;
+  margin-top: 30px;
+}
+.deletebtn{
+ font-size: 19px;
+  margin-left: auto; /* Pushes the delete button to the far right */
+}
+.display{
+  //    display: flex; /* Enables flexbox layout */
+  // justify-content: flex-end; /* Pushes content to the right end */
+  //  //border: 1px solid #ccc; /* For visualization */
+   display: flex;
+  justify-content: space-between; /* Distributes items with space between them */
+  align-items: center; 
+}
+.preferenceform{
+  border: 1px solid black;
+}
+

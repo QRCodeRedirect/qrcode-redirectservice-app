@@ -1,0 +1,135 @@
+/* Container for the grid of count cards */
+.count-card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns of equal fractional width */
+  gap: 16px; /* Space between the cards */
+  padding: 16px;
+}
+
+/* Style for each count card */
+.count-card {
+  display: flex;
+  flex-direction: column; /* Stack header and content vertically */
+  height: 100%; /* Ensures all cards have the same height */
+}
+
+/* Flexbox for card content to center the count value vertically */
+.count-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1; /* Pushes the card content to fill available space */
+}
+.count-value {
+    font-size: 0.8em;
+    font-weight: 500;
+    color: #3f51b5;
+    /* Example: Primary color */
+    margin-left: 50px;
+    margin-top: -10px;
+}
+
+/* Optional: Add responsiveness for smaller screens */
+@media (max-width: 992px) {
+  .count-card-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+  }
+}
+
+@media (max-width: 576px) {
+  .count-card-grid {
+    grid-template-columns: 1fr; /* 1 column on small screens */
+  }
+} 
+   
+.icon-count{
+        font-size: 25px;
+    font-weight: bold;
+    margin-left: 8px;
+}
+.mat-card-color {
+    background-color: White !important;
+}
+.square-box {
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center;    /* Centers vertically */
+  width: 50px;            /* Example width */
+  height: 50px;           /* Example height (equal to width for a square) */
+ // border: 1px solid #ccc; /* Optional: for visual reference of the box */
+   background-color:#D7EDFE; /* Semi-transparent background */
+      border-radius: 8px; /* Slightly rounded corners for a "square" look */
+      backdrop-filter: blur(5px); /* Apply the blur effect */
+      -webkit-backdrop-filter: blur(5px); /* For Safari compatibility */
+}
+.MatPin{
+     // color: #BDB8D0; /* Adjust icon color for better contrast */
+      font-size: 20px !important; /* Adjust icon size as needed */
+    }
+ .square-box mat-icon {
+      color: #BDB8D0; /* Adjust icon color for better contrast */
+      font-size: 26px; /* Adjust icon size as needed */
+    }
+    .header-content {
+  display: flex;
+  align-items: center; /* Vertically centers the icon and text */
+  justify-content: center; /* Horizontally centers the icon and text */
+  white-space: nowrap; /* Prevents text from wrapping to the next line */
+}
+
+/* Optional: Adjust spacing between icon and text if needed */
+.header-content mat-icon {
+  margin-right: 8px; /* Example spacing */
+}
+  .table-container {
+  //background-color: white; /* Set the background color to white */
+ // border: 1px solid #ccc; /* Add a border to the container */
+  border-radius: 8px; /* Apply rounded corners */
+  overflow: hidden; /* Crucial for clipping table content within rounded corners */
+  padding: 15px; /* Add some padding around the table */
+  margin: 15px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Horizontal offset, Vertical offset, Blur radius, Color */
+ // padding: 20px; /* Example padding for content */
+  background-color: white; 
+}
+
+.table-container table {
+  width: 100%; /* Make the table fill the container */
+  border-collapse: collapse; /* Collapse table borders for a cleaner look */
+}
+.my-shadow-table {
+  border-collapse: collapse; /* Ensures borders are handled uniformly */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow */
+  width: 100%; /* Adjust as needed */
+}
+
+.my-shadow-table th,
+.my-shadow-table td {
+  border: none; /* Removes all borders from cells */
+  padding: 8px; /* Adds some spacing within cells */
+  text-align: left; /* Adjust text alignment as desired */
+}
+
+
+.table-container table {
+  width: 100%; /* Make the table fill the container */
+  border-collapse: collapse; /* Collapse table borders for a cleaner look */
+}
+
+
+
+.table-container th {
+  background-color: #f2f2f2; /* Optional: style table headers */
+}
+.bold-text {
+  font-weight: bold; /* or font-weight: 700; */
+}
+.buttonCopy{
+        display: contents;
+}
+.copybtn{    
+        font-size: 17px!important;
+    color: black;
+    margin-bottom: -10px;
+}

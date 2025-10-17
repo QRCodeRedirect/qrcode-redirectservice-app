@@ -1,0 +1,19 @@
+
+<mat-dialog-content>
+  <h4>Select Display Columns</h4>
+<ul>
+  <li *ngFor="let item of displayedColumns">
+    <input type="checkbox" 
+           [checked]="selectedItems.includes(item)"
+           (change)="onToggleItem(item, $event)">
+    {{ item }}
+  </li>
+</ul>
+<!-- <p *ngIf="selectedItems.length > 0">Selected Items: {{ selectedItems.join(', ') }}</p> -->
+
+</mat-dialog-content>
+<mat-dialog-actions>
+   <button mat-button [mat-dialog-close]="true" (click)="onConfirm()">Select</button>
+  <button mat-button mat-dialog-close>Close</button>
+ 
+</mat-dialog-actions>

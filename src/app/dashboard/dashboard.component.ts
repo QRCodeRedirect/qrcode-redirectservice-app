@@ -9,6 +9,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Router, RouterLink } from '@angular/router';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
+import { PreferencesPopup } from '../preferences-popup/preferences-popup';
+import { Subscription } from 'rxjs';
+import { SharedDataService } from '../Services/SharedDataService/shared-data-service';
 
 // export interface AssetRecord {
 //   id: number;
@@ -309,12 +313,15 @@ const ELEMENT_DATA: AssetRecord[] = [
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
+
 export class DashboardComponent implements AfterViewInit, OnInit {
   welcomeMessage: string = '';
   currentYear = new Date().getFullYear();
-  
+  private subscription!: Subscription;
+   CheckedArray: any[] = [];
+    hideColumn = false;
 
-  constructor(private router: Router) {
+  constructor(private router: Router,public dialogRef: MatDialog,private sharedDataService: SharedDataService) {
     this.dataSource = new MatTableDataSource(ELEMENT_DATA);
     // filter predicate to search across aliasId, appUrl, imageUrl, category
     this.dataSource.filterPredicate = (data: AssetRecord, filter: string) => {
@@ -370,6 +377,62 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     this.dataSource.filter = (value || '').trim().toLowerCase();
     if (this.paginator) this.paginator.firstPage();
   }
+  openDailog(){
+   const dialog =this.dialogRef.open(PreferencesPopup,{
+    data:this.displayedColumns
+  });
+  dialog.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+       this.subscription = this.sharedDataService.currentConfirmedArray.subscribe(
+      (array) => {
+        this.CheckedArray = array;
+      }
+    );
+    debugger;
+    if (this.CheckedArray.length > 0) {
+      this.displayedColumns.length=0;
+  for (const checkedItem of this.CheckedArray) {
+    switch (checkedItem) {
+      case "ID":
+        this.displayedColumns.push("id");
+        break;
+      case "Alias ID":
+        this.displayedColumns.push("aliasId");
+        break;
+      case "Date":
+        this.displayedColumns.push("date");
+        break;
+      case "App URL":
+        this.displayedColumns.push("appUrl");
+        break;
+      case "Image URL":
+        this.displayedColumns.push("imageUrl");
+        break;
+      case "Category":
+        this.displayedColumns.push("category");
+        break;
+      case "Created By":
+        this.displayedColumns.push("CreatedBy");
+        break;
+      case "Created Date":
+        this.displayedColumns.push("CreatedDate");
+        break;
+      case "Modified By":
+        this.displayedColumns.push("ModifiedBy");
+        break;
+      case "Modified Date":
+        this.displayedColumns.push("ModifiedDate");
+        break;
+      // No default case needed inside the loop
+    }
+  }
+}
+      });
+      
 
+}
+  navigateBatch(path: string) {
+    this.router.navigate([path]);
+  }
 }
 
