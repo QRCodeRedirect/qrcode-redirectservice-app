@@ -1,0 +1,451 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 56px;
+  min-height: 56px;
+  padding: 0 24px;
+  background-color: #2997e3 !important; // Use the same blue as dashboard
+  color: #fff !important;
+  position: relative;
+  font-family: 'Roboto', sans-serif;
+}
+
+.header img {
+  height: 32px;
+  margin-right: 16px;
+}
+
+body {
+  margin-left: 40px;  // You can change the value as needed
+  margin-right: 40px;
+}
+
+.user-profile {
+  font-weight: 500;
+  cursor: pointer;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background 0.2s;
+  margin-right: 2rem;
+  font-family: 'Roboto', sans-serif;
+}
+
+.user-profile:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 1.25rem;
+  font-family: 'Roboto', sans-serif;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+  padding: 1rem 2.5rem;
+  margin-top: 1rem;
+  font-family: 'Roboto', sans-serif;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  background-color: #2997e3 !important;
+  color: white !important;
+  transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.action-icon {
+  font-size: 20px;
+  color: white;
+}
+
+.footer-bar {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 56px;
+  background-color: #2997e3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  z-index: 100;
+  border-top: 1px solid #1976d2; /* Optional: darker blue border */
+}
+
+.footer-title {
+  text-align: left;
+  width: 100%;
+  padding-left: 32px;
+}
+
+@media (max-width: 900px) {
+  .footer-title {
+    padding-left: 16px;
+    font-size: 14px;
+  }
+}
+
+.metrics-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin: 1rem 2.5rem;
+}
+
+.metric-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  padding: 0.75rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.metric-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.metric-card .icon {
+  font-size: 1.5rem;
+  color: #007bff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(0, 123, 255, 0.1);
+  flex-shrink: 0;
+}
+
+.metric-text {
+  text-align: left;
+  flex: 1;
+}
+
+.metric-label {
+  font-size: 12px;
+  color: #6c757d;
+  font-weight: 500;
+  margin-bottom: 0.2rem;
+  line-height: 1.2;
+}
+
+.metric-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #212529;
+  line-height: 1.2;
+}
+
+.metric-sublabel {
+  font-size: 0.85rem;
+  color: #28a745;
+  font-weight: 500;
+}
+
+/* Style for each count card */
+.count-card {
+  display: flex;
+  flex-direction: column; /* Stack header and content vertically */
+  height: 100%; /* Ensures all cards have the same height */
+}
+
+/* Flexbox for card content to center the count value vertically */
+.count-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1; /* Pushes the card content to fill available space */
+}
+.count-value {
+    font-size: 0.8em;
+    font-weight: 500;
+    color: #3f51b5;
+    /* Example: Primary color */
+    margin-left: 50px;
+    margin-top: -10px;
+}
+
+/* Optional: Add responsiveness for smaller screens */
+@media (max-width: 992px) {
+  .count-card-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+  }
+}
+
+@media (max-width: 576px) {
+  .count-card-grid {
+    grid-template-columns: 1fr; /* 1 column on small screens */
+  }
+} 
+   
+.icon-count{
+        font-size: 25px;
+    font-weight: bold;
+    margin-left: 8px;
+}
+.mat-card-color {
+    background-color: White !important;
+}
+.square-box {
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center;    /* Centers vertically */
+  width: 50px;            /* Example width */
+  height: 50px;           /* Example height (equal to width for a square) */
+ // border: 1px solid #ccc; /* Optional: for visual reference of the box */
+   background-color:#D7EDFE; /* Semi-transparent background */
+      border-radius: 8px; /* Slightly rounded corners for a "square" look */
+      backdrop-filter: blur(5px); /* Apply the blur effect */
+      -webkit-backdrop-filter: blur(5px); /* For Safari compatibility */
+}
+.MatPin{
+     // color: #BDB8D0; /* Adjust icon color for better contrast */
+      font-size: 20px !important; /* Adjust icon size as needed */
+    }
+ .square-box mat-icon {
+      color: #BDB8D0; /* Adjust icon color for better contrast */
+      font-size: 26px; /* Adjust icon size as needed */
+    }
+    .header-content {
+  display: flex;
+  align-items: center; /* Vertically centers the icon and text */
+  justify-content: center; /* Horizontally centers the icon and text */
+  white-space: nowrap; /* Prevents text from wrapping to the next line */
+}
+
+/* Optional: Adjust spacing between icon and text if needed */
+.header-content mat-icon {
+  margin-right: 8px; /* Example spacing */
+}
+  .table-container {
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 20px;
+  margin: 1.5rem 1rem;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  background-color: #fff;
+  font-family: 'Roboto', sans-serif;
+}
+
+.table-container table {
+  width: 100%; /* Make the table fill the container */
+  border-collapse: collapse; /* Collapse table borders for a cleaner look */
+}
+.my-shadow-table {
+  border-collapse: collapse; /* Ensures borders are handled uniformly */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow */
+  width: 100%; /* Adjust as needed */
+}
+
+.my-shadow-table th,
+.my-shadow-table td {
+  border-bottom: 1px solid #eee;
+  padding: 14px 12px;
+  text-align: left;
+  font-family: 'Roboto', sans-serif;
+}
+.my-shadow-table th { color: #6b7280; font-weight: 600; font-size: 12px; letter-spacing: .02em; }
+.col-right { text-align: right; }
+.col-center { text-align: center; }
+.qr-thumb { width: 36px; height: 36px; object-fit: contain; border-radius: 6px; background:#f3f4f6; padding:4px; border:1px solid #e5e7eb; }
+.actions-cell button + button { margin-left: 8px; }
+
+.actions-cell button[color="warn"] {
+  color: red !important;
+  background-color: transparent !important;
+}
+
+.my-shadow-table mat-row:hover {
+  background-color: #f5f5f5; /* Row hover effect */
+}
+
+
+.table-container table {
+  width: 100%; /* Make the table fill the container */
+  border-collapse: collapse; /* Collapse table borders for a cleaner look */
+}
+
+
+
+.table-container th { background-color: #fff; }
+.bold-text {
+  font-weight: bold;
+  font-family: 'Roboto', sans-serif;
+}
+// .buttonCopy{
+//         display: contents;
+// }
+// .copybtn{
+//         font-size: 17px!important;
+//     color: black;
+//     margin-bottom: -10px;
+// }
+
+/* Short URL cell layout */
+.short-url-cell{
+  display:flex;
+  align-items:center;
+  gap: 6px; /* reduced gap between favicon, text and button */
+  width: 100%;
+}
+.short-url-favicon{ width:16px; height:16px; flex: 0 0 16px; }
+.short-url-link{ color:#2563eb; text-decoration: underline; word-break: break-all; }
+.short-url-cell .spacer{ flex:1 1 auto; }
+// .copy-icon-btn{ margin-left: 4px; } /* reduced margin to tighten spacing */
+
+@media (max-width: 640px){
+  .short-url-link{ font-size: .95rem; }
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-family: 'Roboto', sans-serif;
+}
+.table-header .controls{
+  display:flex;
+  gap: 12px;
+  align-items:center;
+}
+.filter-field{ width: 180px; }
+
+.search-field {
+  width: 400px;
+  font-family: 'Roboto', sans-serif;
+::ng-deep .mat-mdc-form-field-label {
+  font-size: 0.625rem; // Smaller size for compact alignment
+  font-weight: 300;    // Light weight for visual balance
+  line-height: 1.2;    // Ensures vertical alignment stays clean
+}
+::ng-deep .mat-mdc-form-field-outline {
+  height: 40px; // Reduce height
+}
+::ng-deep .mat-mdc-form-field-flex {
+  height: 40px; // Reduce height
+}
+::ng-deep .mat-mdc-input-element {
+  font-size: 12px; // Reduce font size
+}
+}
+
+.status-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Roboto', sans-serif;
+}
+::ng-deep .short-url-cell {
+  display: flex;
+  align-items: center;   // Vertically center the copy button
+  justify-content: space-between; // Ensures URL and button are spaced evenly
+  gap: 8px;               // Optional: adjust spacing between URL and button
+}
+
+
+.short-url-cell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1px; /* Further reduced gap for little less space */
+  padding: 1px 0;
+
+  .favicon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    margin-right: 6px;
+  }
+
+  .url-text {
+    font-size: 14px;
+    color: #1a73e8;
+    text-decoration: underline;
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+.buttonCopy {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem; // Tight horizontal spacing between URL and button
+  color: #5f6368;
+  white-space: nowrap;
+
+  .short-url {
+    font-size: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .copybtn {
+    font-size: 18px;
+    margin-left: 0; // Remove default spacing
+    padding: 0.25rem 0.5rem; // Compact button size
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    svg {
+      width: 16px;
+      height: 16px;
+      vertical-align: middle;
+    }
+  }
+}
+
+}
+
+
+.status-label.active { color: #198754; background: #eaf7ef; border: 1px solid #cfead7; padding: 2px 8px; border-radius: 999px; font-weight: 600; }
+.status-label.expired { color: #dc3545; background: #fdecec; border: 1px solid #f7c5c5; padding: 2px 8px; border-radius: 999px; font-weight: 600; }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+// Target the input with placeholder "Search by code or destination..." and reduce its font size
+input[placeholder="Search by code or destination..."] {
+  font-size: 12px; // Adjust this value as needed
+  
+}
+
+

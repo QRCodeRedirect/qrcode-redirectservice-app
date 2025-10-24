@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
-import { AssetRecord } from '../dashboard/dashboard.component';
+import { AssetRecord } from '../models/asset-record.model';
 
 @Component({
   selector: 'app-asset-table',

@@ -1,82 +1,103 @@
-<mat-toolbar class="header">
-  <span><img src="assets/ecolab-logo-white-svg.svg" alt="Ecolab Logo" /></span>
-  <span class="toolbar-title">DaaS QR Code</span>
-</mat-toolbar>
+<header class="header">
+  <div class="logo">ECL QR Code Manager</div>
+  <span class="user-profile">{{ userName }}</span>
+</header>
 
 <div class="dashboard-container">
-  <mat-toolbar class="dashboard-toolbar mat-elevation-z2">
-    <div class="nav-buttons">
-      <!-- Assets menu -->
-      <button mat-button [matMenuTriggerFor]="assetsMenu" type="button">
-        Assets <mat-icon>expand_more</mat-icon>
-      </button>
-      <mat-menu #assetsMenu="matMenu" xPosition="after">
-        <!-- Redirects to /upload-file as a separate page -->
-        <!--<a mat-menu-item [routerLink]="['/upload-file']" (click)="navigate('/upload-file')">
-          Upload File
-        </a> -->
-        <a mat-menu-item class="upload-file-menu-item" [routerLink]="['/upload-file']" (click)="navigate('/upload-file')">
-          Upload File
-        </a>
-      </mat-menu>
-
-  <!-- Categories (placeholder) -->
-  <a mat-button [routerLink]="['/categories']" (click)="navigate('/categories')">Categories</a>
-
-      <!-- Redirects to /activity as a separate page -->
-      <a mat-button [routerLink]="['/activity']" (click)="navigate('/activity')">Activity</a>
-
-      <!-- Generate QR Code -->
-      <a mat-button [routerLink]="['/generate-qrcode']" (click)="navigate('/generate-qrcode')">Generate QR Code</a>
+  <div class="dashboard-title-bar">
+    <div class="title-left">
+      <h1>Dashboard</h1>
+      <nav class="header-nav">
+        <a routerLink="/activity" routerLinkActive="active">Activity</a>
+        
+      </nav>
     </div>
-
-    <div class="spacer"></div>
-
-    <!-- Example search bar -->
-    <mat-form-field appearance="outline" class="search-bar">
-      <mat-label>Search</mat-label>
-      <input matInput placeholder="Search for assets..." (input)="applyFilter($any($event.target).value)" />
-      <button mat-icon-button matSuffix aria-label="Search" type="button" (click)="onSearch()">
-        <mat-icon>search</mat-icon>
-      </button>
-    </mat-form-field>
-
-    
-
-    <!-- More menu -->
-    <button mat-button [matMenuTriggerFor]="moreMenu" class="more-button" type="button">
-      More <mat-icon>expand_more</mat-icon>
-    </button>
-    <mat-menu #moreMenu="matMenu">
-      <a mat-menu-item [routerLink]="['/advanced-search']" (click)="navigate('/advanced-search')">Advanced Search</a>
-      <button mat-menu-item type="button">Saved Searches</button>
-      <button mat-menu-item type="button">Search Help</button>
-    </mat-menu>
-    <div class="spacer"></div>
-
-    <!-- Icons -->
-    <button mat-icon-button aria-label="Notifications" type="button">
-      <mat-icon>notifications</mat-icon>
-    </button>
-    <button mat-icon-button aria-label="Help" type="button">
-      <mat-icon>help_outline</mat-icon>
-    </button>
-    <button mat-icon-button aria-label="User Profile" type="button">
-      <mat-icon>account_circle</mat-icon>
-    </button>
-  </mat-toolbar>
-
-  <div class="container">
-    <div class="container">
-      <!-- <div class="advanced-toggle-row">
-        <a mat-stroked-button role="button" [routerLink]="['/advanced-search']" (click)="navigate('/advanced-search')">Advanced Search</a>
-      </div> -->
-
-      <app-asset-table [data]="filteredData"></app-asset-table>
-
-    </div>
+    <button class="create-batch-btn" routerLink="/create-batch">Create Batch</button>
   </div>
 
+  <!-- Metrics Summary -->
+  <section class="metrics-summary">
+    <div class="metric-card">
+      <div class="icon">🛍️</div>
+      <div class="metric-value">247</div>
+      <div class="metric-label">Total Batches</div>
+      <div class="metric-sublabel">+12% from last month</div>
+    </div>
+    <div class="metric-card">
+      <div class="icon">🔗</div>
+      <div class="metric-value">18,432</div>
+      <div class="metric-label">Active Short URLs</div>
+      <div class="metric-sublabel">+8.2% from last month</div>
+    </div>
+    <div class="metric-card">
+      <div class="icon">📊</div>
+      <div class="metric-value">142.8K</div>
+      <div class="metric-label">Total Scans</div>
+      <div class="metric-sublabel">+23% from last month</div>
+    </div>
+    <div class="metric-card">
+      <div class="icon">🌍</div>
+      <div class="metric-value">48</div>
+      <div class="metric-label">Countries Reached</div>
+      <div class="metric-sublabel">+3 new countries</div>
+    </div>
+  </section>
+
+  <!-- Recent Batches Table -->
+  <section class="batches-section">
+    <div class="batches-header">
+      <h4>Recent Batches</h4>
+      <div class="search-bar">
+        
+        <input type="text" placeholder="Search batches..." [(ngModel)]="searchTerm" class="search-input" />
+        <button (click)="searchBatches()">Search</button>
+
+        <a routerLink="/advanced-search" routerLinkActive="active" class="advanced-search-link">
+  <img src="assets/3dot.svg" class="dots-icon" />
+  <span class="tooltip-text">Advanced Search</span>
+</a>
+
+      </div>
+    </div>
+    <table class="batches-table">
+      <thead>
+        <tr>
+          <th>Batch Name</th>
+          <th>Description</th>
+          <th>URLs</th>
+          <th>Status</th>
+          <th>Created</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let batch of filteredBatches()">
+          <td><a routerLink="/batch">{{ batch.name }}</a></td>
+          <td>{{ batch.description }}</td>
+          <td>{{ batch.urls }}</td>
+          <td>
+            <span [ngClass]="{'status-complete': batch.status === 'Complete', 'status-processing': batch.status === 'Processing'}">
+              <ng-container *ngIf="batch.status === 'Complete'">✓ Complete</ng-container>
+              <ng-container *ngIf="batch.status === 'Processing'">⏳ Processing</ng-container>
+            </span>
+          </td>
+          <td>{{ batch.created }}</td>
+          <td>
+            <a routerLink="/batch">View</a> | <a href="#">Download</a> | <a href="#" class="delete-link">Delete</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="pagination">
+      <button>< Previous</button>
+      <span>Showing 5 of 247 batches</span>
+      <button>Next ></button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  
+
 <div class="footer-bar">
-  <span class="footer-title">© Ecolab {{ currentYear || '2025' }}</span>
+  <span class="footer-title">© Ecolab {{ currentYear }}</span>
 </div>

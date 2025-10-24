@@ -1,42 +1,43 @@
-<mat-toolbar class="header">
-  <span><img src="assets/ecolab-logo-white-svg.svg" alt="Ecolab Logo" /></span>
-  <span class="toolbar-title">Welcome</span>
-</mat-toolbar>
+<header class="header">
+  <div class="logo">ECL QR Code Manager</div>
+  <span class="user-profile" style="display: none;"></span>
+</header>
 
-<div class="login-container">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Login</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-        <mat-form-field appearance="outline">
-          <mat-label>Username</mat-label>
-          <input matInput formControlName="username" required>
-          <mat-error *ngIf="loginForm.get('username')?.hasError('required')">Username is required</mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Password</mat-label>
-          <input matInput formControlName="password" type="password" required>
-          <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Password is required</mat-error>
-        </mat-form-field>
-
-        <div *ngIf="loginError" class="error-message">
-          {{ loginError }}
-        </div>
-
-        <div class="button-row">
-          <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Login</button>
-          <button mat-stroked-button color="primary" (click)="onSsoLogin()">
-            <mat-icon>vpn_key</mat-icon> SSO Login
-          </button>
-        </div>
-      </form>
-    </mat-card-content>
-  </mat-card>
+<div class="login-wrapper">
+  <div class="left-panel">
+    <div class="welcome-content">
+      <h1>Welcome to ECL QR Code Manager</h1>
+      <ul class="features">
+        <li>Generate, manage, and track dynamic QR codes at scale.</li>
+        <li>Create thousands of short URLs with a single click.</li>
+        <li>Generate up to 10,000 URLs per batch</li>
+        <li>Dynamic QR codes with editable destinations</li>
+        <li>Real-time analytics and geolocation tracking</li>
+        <li>High-resolution QR codes for print</li>
+        <li>Bulk CSV upload and export</li>
+      </ul>
+    </div>
+    <img src="assets/ecolab-logo-white-svg.svg" alt="ECL Logo" class="ecl-logo" />
+  </div>
+  <div class="right-panel">
+    <h2>ECL</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <input type="email" formControlName="email" placeholder="Email address" required />
+      <input type="password" formControlName="password" placeholder="Password" required />
+      <div class="checkbox-row">
+        <input type="checkbox" formControlName="rememberMe" id="rememberMe" />
+        <label for="rememberMe">Remember me</label>
+      </div>
+      <button type="submit" [disabled]="!loginForm.valid">Log in</button>
+      <a href="#" (click)="onForgotPassword(); $event.preventDefault()">Forgot password?</a>
+      <p>Don't have an account? <a href="#" (click)="onSignUp(); $event.preventDefault()">Sign up</a></p>
+    </form>
+    <div *ngIf="loginError" class="error-message">
+      {{ loginError }}
+    </div>
+  </div>
 </div>
 
 <div class="footer-bar">
-  <span class="footer-title">© Ecolab {{ currentYear || '2025' }}</span>
+  <span class="footer-title">© Ecolab {{ currentYear }}</span>
 </div>

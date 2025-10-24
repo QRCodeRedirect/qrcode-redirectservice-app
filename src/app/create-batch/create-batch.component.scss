@@ -1,0 +1,279 @@
+.create-batch-container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 96px;
+  background: #f8f9fa;
+  min-height: calc(100vh - 112px); // Account for header and footer
+}
+
+.create-batch-container * {
+  font-family: 'Calibri', sans-serif;
+}
+
+.content-wrapper {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+h1 {
+  margin: 0 0 2rem 0;
+  font-size: 2rem;
+  color: #333;
+  font-weight: 600;
+}
+
+// Header styles (matching dashboard)
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 56px;
+  min-height: 56px;
+  padding: 0 24px;
+  background-color: #2997e3 !important;
+  color: #fff !important;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.user-profile {
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background 0.2s;
+  margin-right: 2rem;
+}
+
+.user-profile:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+// Tabbed interface
+.tabs {
+  display: flex;
+  border-bottom: 1px solid #dee2e6;
+  margin-bottom: 2rem;
+}
+
+.tab-button {
+  background: none;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+  color: #6c757d;
+
+  &:hover {
+    color: #007bff;
+  }
+
+  &.active {
+    color: #007bff;
+    border-bottom-color: #007bff;
+  }
+}
+
+// Form styles
+.batch-form {
+  max-width: 600px;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.required {
+  color: #dc3545;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  &:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+
+  &.error {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+  }
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.help-text {
+  color: #6c757d;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+// Primary button
+.primary-button {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.875rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  width: 100%;
+  margin-top: 1rem;
+
+  &:hover:not(:disabled) {
+    background: #0056b3;
+  }
+
+  &:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+  }
+}
+
+// CSV placeholder
+.csv-placeholder {
+  text-align: center;
+  padding: 3rem;
+  color: #6c757d;
+  font-size: 1.1rem;
+}
+
+// Info section
+.info-section {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+  border-left: 4px solid #007bff;
+}
+
+.info-section h2 {
+  margin: 0 0 1rem 0;
+  color: #333;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.info-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.info-list li {
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  color: #495057;
+
+  &::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #28a745;
+    font-weight: bold;
+  }
+}
+
+// Footer (matching dashboard)
+.footer-bar {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 56px;
+  background-color: #2997e3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  z-index: 100;
+  border-top: 1px solid #1976d2;
+}
+
+.footer-title {
+  text-align: left;
+  width: 100%;
+  padding-left: 32px;
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .create-batch-container {
+    padding: 1rem 0.5rem 96px;
+  }
+
+  .content-wrapper {
+    padding: 1.5rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .tabs {
+    flex-direction: column;
+  }
+
+  .tab-button {
+    padding: 0.75rem 1rem;
+    text-align: center;
+  }
+
+  .batch-form {
+    max-width: 100%;
+  }
+
+  .primary-button {
+    padding: 0.75rem 1.5rem;
+  }
+
+  .info-section {
+    padding: 1rem;
+  }
+
+  .footer-title {
+    padding-left: 16px;
+    font-size: 14px;
+  }
+  
+}

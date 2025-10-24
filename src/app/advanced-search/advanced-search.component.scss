@@ -9,13 +9,16 @@
 }
 
 .advanced-search-container {
-  padding: 16px;
-  padding-bottom: 72px; /* space for fixed footer */
-  max-width: 1200px;
+  padding: 1rem 1.5rem 96px;
+  max-width: 1600px;
   width: 100%;
   margin: 0 auto;
   /* space below fixed toolbar */
-  margin-top: 88px;
+  margin-top: 15px;
+}
+
+.advanced-search-container * {
+  font-family: 'Calibri';
 }
 
 
@@ -47,11 +50,13 @@
 }
 
 .results-container {
-  margin-top: 16px;
+  margin-top: 2px;
   max-width: 1200px;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 // .header img {
@@ -141,12 +146,12 @@
     padding: 12px;
   }
  
-  .advanced-search-container { margin-top: 92px; }
+  // .advanced-search-container { margin-top: 92px; }
 
   .dashboard-container {
   display: flex;
   flex-direction: column;
-  padding-top:60px;
+  padding-top:20px;
   padding-bottom: 64px; /* Space for the main fixed footer */
 }
 }

@@ -7,6 +7,8 @@ import { ActivityComponent } from './activity/activity.component';
 import { CategoriesComponent } from './categories/category-explorer.component';
 import { AdvancedSearchComponent } from './advanced-search/advanced-search.component';
 import { GenerateqrcodeComponent } from './generateqrcode/generateqrcode.component';
+import { CreateBatchComponent } from './create-batch/create-batch.component';
+import { Batch } from './batch/batch';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -17,6 +19,8 @@ export const routes: Routes = [
   { path: 'categories', component: CategoriesComponent },
   { path: 'activity', component: ActivityComponent },
   { path: 'generate-qrcode', component: GenerateqrcodeComponent },
+  { path: 'create-batch', component: CreateBatchComponent },
+  { path: 'batch', component: Batch },
 
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/login' } // Wildcard route for a 404 or redirect

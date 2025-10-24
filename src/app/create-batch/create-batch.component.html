@@ -1,0 +1,127 @@
+<header class="header">
+  <div class="logo">ECL QR Code Manager</div>
+  <span class="user-profile">{{ userName }}</span>
+</header>
+
+<div class="create-batch-container">
+  <div class="content-wrapper">
+    <h1>Create Batch</h1>
+
+    <!-- Tabbed Interface -->
+    <div class="tabs">
+      <button
+        class="tab-button"
+        [class.active]="activeTab === 'manual'"
+        (click)="setActiveTab('manual')"
+        aria-selected="activeTab === 'manual'"
+        role="tab">
+        Manual Entry
+      </button>
+      <button
+        class="tab-button"
+        [class.active]="activeTab === 'csv'"
+        (click)="setActiveTab('csv')"
+        aria-selected="activeTab === 'csv'"
+        role="tab">
+        CSV Upload
+      </button>
+    </div>
+
+    <!-- Manual Entry Tab Content -->
+    <div *ngIf="activeTab === 'manual'" class="tab-content" role="tabpanel">
+      <form [formGroup]="batchForm" (ngSubmit)="onSubmit()" class="batch-form">
+        <div class="form-group">
+          <label for="batchName" class="form-label">Batch Name <span class="required">*</span></label>
+          <input
+            type="text"
+            id="batchName"
+            formControlName="batchName"
+            class="form-input"
+            placeholder="e.g., Product Launch Q1 2025"
+            [class.error]="batchForm.get('batchName')?.invalid && batchForm.get('batchName')?.touched"
+            aria-describedby="batchName-error">
+          <div *ngIf="batchForm.get('batchName')?.invalid && batchForm.get('batchName')?.touched" class="error-message" id="batchName-error">
+            Batch name is required.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="description" class="form-label">Description</label>
+          <textarea
+            id="description"
+            formControlName="description"
+            class="form-textarea"
+            placeholder="Optional description for this batch"
+            rows="3"
+            aria-describedby="description-help">
+          </textarea>
+          <small id="description-help" class="help-text">Optional field for additional batch details.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="numberOfUrls" class="form-label">Number of URLs <span class="required">*</span></label>
+          <input
+            type="number"
+            id="numberOfUrls"
+            formControlName="numberOfUrls"
+            class="form-input"
+            min="1"
+            max="5000"
+            [class.error]="batchForm.get('numberOfUrls')?.invalid && batchForm.get('numberOfUrls')?.touched"
+            aria-describedby="numberOfUrls-error">
+          <div *ngIf="batchForm.get('numberOfUrls')?.invalid && batchForm.get('numberOfUrls')?.touched" class="error-message" id="numberOfUrls-error">
+            <span *ngIf="batchForm.get('numberOfUrls')?.errors?.['required']">Number of URLs is required.</span>
+            <span *ngIf="batchForm.get('numberOfUrls')?.errors?.['min']">Must be at least 1.</span>
+            <span *ngIf="batchForm.get('numberOfUrls')?.errors?.['max']">Cannot exceed 5000.</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="expirationDate" class="form-label">Expiration Date <span class="required">*</span></label>
+          <input
+            type="date"
+            id="expirationDate"
+            formControlName="expirationDate"
+            class="form-input"
+            [class.error]="batchForm.get('expirationDate')?.invalid && batchForm.get('expirationDate')?.touched"
+            aria-describedby="expirationDate-error">
+          <div *ngIf="batchForm.get('expirationDate')?.invalid && batchForm.get('expirationDate')?.touched" class="error-message" id="expirationDate-error">
+            Expiration date is required.
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="primary-button"
+          [disabled]="batchForm.invalid"
+          aria-describedby="submit-help">
+          Generate Short URLs & QR Codes
+        </button>
+        <small id="submit-help" class="help-text">Click to create the batch with the specified parameters.</small>
+      </form>
+    </div>
+
+    <!-- CSV Upload Tab Content (Placeholder) -->
+    <div *ngIf="activeTab === 'csv'" class="tab-content" role="tabpanel">
+      <div class="csv-placeholder">
+        <p>Upload a CSV to generate QR codes in bulk.</p>
+      </div>
+    </div>
+
+    <!-- Info Section -->
+    <div class="info-section">
+      <h2>What happens next?</h2>
+      <ul class="info-list">
+        <li>Short URLs will be generated immediately and saved to your account.</li>
+        <li>QR codes will be created in the background (takes a few minutes for large batches).</li>
+        <li>A download link will be available with a CSV attachment containing all URLs.</li>
+        <li>All URLs and QR codes can be managed from the dashboard.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer-bar">
+  <span class="footer-title">© Ecolab {{ currentYear }}</span>
+</div>
