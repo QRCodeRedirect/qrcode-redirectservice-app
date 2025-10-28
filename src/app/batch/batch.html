@@ -69,23 +69,14 @@
   <div class="table-header">
     <p class="bold-text">URLs in this Batch</p>
     <div class="controls">
-      <mat-form-field appearance="outline" class="search-field">
-        <mat-label>Search by code or destination...</mat-label>
-        <input matInput [(ngModel)]="search" (ngModelChange)="applyFilter()" placeholder="Search by code or destination...">
-        <button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
-          <mat-icon>close</mat-icon>
-        </button>
-        <mat-icon matSuffix>search</mat-icon>
-      </mat-form-field>
-      <!-- <mat-form-field appearance="outline" class="filter-field">
-        <mat-label>Status</mat-label>
-        <mat-select [(ngModel)]="statusFilter" (selectionChange)="applyFilter()">
-          <mat-option value="">All</mat-option>
-          <mat-option value="Active">Active</mat-option>
-          <mat-option value="Inactive">Inactive</mat-option>
-          <mat-option value="Expired">Expired</mat-option>
-        </mat-select>
-      </mat-form-field> -->
+      <input type="text" placeholder="Search by code or destination..." class="search-input ng-pristine ng-valid ng-touched" [(ngModel)]="search" (ngModelChange)="applyFilter()">
+      <button class="search-button" (click)="applyFilter()">Search</button>
+
+       <a routerLink="/advanced-search" routerLinkActive="active" class="advanced-search-link">
+          <img src="assets/3dot.svg" class="dots-icon" />
+          <span class="tooltip-text">Advanced Search</span>
+        </a>
+      
     </div>
   </div>
 
@@ -106,7 +97,7 @@
     <ng-container matColumnDef="destinastionUrl">
       <th mat-header-cell *matHeaderCellDef> DESTINATION URL </th>
       <td mat-cell *matCellDef="let element">
-        <input matInput [(ngModel)]="element.destinastionUrl" placeholder="Enter destination URL" />
+        <input matInput [(ngModel)]="element.destinastionUrl" placeholder="Enter destination URL" class="destination-input" />
       </td>
     </ng-container>
 
@@ -163,5 +154,3 @@
 <div class="footer-bar">
   <span class="footer-title">© Ecolab {{ currentYear }}</span>
 </div>
-
-

@@ -1,0 +1,69 @@
+<header class="header">
+  <div class="logo">ECL QR Code Manager</div>
+  <span class="user-profile" style="display: none;"></span>
+</header>
+
+
+    <div class="login-wrapper">
+  <div class="left-panel">
+    <div class="welcome-content">
+      <h1>Welcome to ECL QR Code Manager</h1>
+      <ul class="features">
+        <li>Free to get started</li>
+      <li>No credit card required</li>
+      <li>Instant account activation</li>
+      <li>24/7 customer support</li>
+
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="right-panel">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" autocomplete="off">
+      <!-- <img src="assets/ecl-logo.svg" alt="ECL Logo" class="register-logo" /> -->
+      <h3>Create account</h3>
+      <p class="subtitle">Get started with your free account</p>
+      <div class="form-group">
+        <label for="fullName">Full name</label>
+        <input id="fullName" formControlName="fullName" type="text" autocomplete="name" />
+      </div>
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input id="email" formControlName="email" type="email" autocomplete="email" />
+        <span class="input-hint">We'll send a verification email to this address</span>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input id="password" formControlName="password" type="password" autocomplete="new-password" />
+        <span class="input-hint">Min. 8 characters with uppercase, lowercase, number & special character</span>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="division">Division</label>
+          <select id="division" formControlName="division">
+            <option value="">Select division</option>
+            <option value="division1">Division 1</option>
+            <option value="division2">Division 2</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="businessUnit">Business Unit</label>
+          <input id="businessUnit" formControlName="businessUnit" type="text" placeholder="e.g., Food & Beverage" />
+        </div>
+      </div>
+      <div class="form-group checkbox-group">
+        <input id="terms" type="checkbox" formControlName="terms" />
+        <label for="terms">I agree to the Terms of Service and Privacy Policy</label>
+      </div>
+      <button type="submit" class="primary-btn" [disabled]="registerForm.invalid">Create account</button>
+      <div class="secondary-action">
+        Already have an account? <a routerLink="/login">Log in</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="footer-bar">
+  <span class="footer-title">© Ecolab {{ currentYear }}</span>
+</div>

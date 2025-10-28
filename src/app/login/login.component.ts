@@ -45,8 +45,13 @@ export class LoginComponent implements OnInit {
   }
 
   onSignUp(): void {
-    // Placeholder for sign up functionality
-    alert('Sign up functionality coming soon!');
+     // Navigate to register page
+     this.router.navigate(['/register']);
+  }
+
+  onSSO(): void {
+    // Redirect to dashboard page
+    this.router.navigate(['/dashboard']);
   }
 
   currentYear = new Date().getFullYear();

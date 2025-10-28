@@ -341,23 +341,29 @@ body {
 }
 .filter-field{ width: 180px; }
 
-.search-field {
-  width: 400px;
+.search-input {
+  width: 200px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
   font-family: 'Roboto', sans-serif;
-::ng-deep .mat-mdc-form-field-label {
-  font-size: 0.625rem; // Smaller size for compact alignment
-  font-weight: 300;    // Light weight for visual balance
-  line-height: 1.2;    // Ensures vertical alignment stays clean
 }
-::ng-deep .mat-mdc-form-field-outline {
-  height: 40px; // Reduce height
+
+.search-button {
+  padding: 8px 16px;
+  background-color: #2997e3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: 'Roboto', sans-serif;
+  margin-left: 8px;
 }
-::ng-deep .mat-mdc-form-field-flex {
-  height: 40px; // Reduce height
-}
-::ng-deep .mat-mdc-input-element {
-  font-size: 12px; // Reduce font size
-}
+
+.search-button:hover {
+  background-color: #1976d2;
 }
 
 .status-label {
@@ -445,7 +451,49 @@ body {
 // Target the input with placeholder "Search by code or destination..." and reduce its font size
 input[placeholder="Search by code or destination..."] {
   font-size: 12px; // Adjust this value as needed
-  
+
 }
+
+.destination-input {
+  width: 230px; /* Increased width for destination URL input */
+}
+
+
+
+.advanced-search-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  text-decoration: none;
+
+  .dots-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .tooltip-text {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  &:hover .tooltip-text {
+    opacity: 1;
+  }
+}
+
 
 

@@ -12,6 +12,7 @@ import { Batch } from './batch/batch';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'register', loadComponent: () => import('./register/register.component').then(m => m.RegisterComponent) },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'search-results', component: SearchResultsComponent },
   { path: 'upload-file', component: UploadFileComponent },

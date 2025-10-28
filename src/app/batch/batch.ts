@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { RouterModule } from '@angular/router';
 
 export interface PeriodicElement {
   shortUrl: string;
@@ -79,6 +80,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     FormsModule,
     MatSelectModule,
     MatButtonModule,
+    RouterModule,
   ],
   templateUrl: './batch.html',
   styleUrl: './batch.scss',
