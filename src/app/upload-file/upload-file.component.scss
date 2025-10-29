@@ -105,3 +105,24 @@
   width: 100%;
   padding-left: 32px;
 }
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+
+  &.found {
+    color: #4caf50;
+  }
+
+  &.not-found {
+    color: #f44336;
+  }
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+}

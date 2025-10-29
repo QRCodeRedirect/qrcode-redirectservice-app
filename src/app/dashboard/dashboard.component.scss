@@ -67,13 +67,10 @@
 
 .title-left h1 {
   margin: 0;
-  font-size: 1.8rem;
-  color: #333;
+  font-size: 1.2rem !important; /* Overriding a previous rule, consider refactoring */
+  color: #0056b3; /* A nice shade of blue */
   font-weight: 600;
-}
-
-.title-left h1 {
-  font-size: 1.2rem !important;
+  margin-left: 2rem; /* Added left margin */
 }
 
 .batches-header h2 {
@@ -109,7 +106,7 @@
 }
 
 .header-nav a {
-  color: #007bff;
+  color: #0056b3;
   text-decoration: none;
   padding: 0.5rem 1rem;
   border-radius: 4px;

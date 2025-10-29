@@ -60,6 +60,18 @@
               <td mat-cell *matCellDef="let element"> {{element['Destination URL']}} </td>
             </ng-container>
 
+            <!-- Status Column -->
+            <ng-container matColumnDef="Status">
+              <th mat-header-cell *matHeaderCellDef> Status </th>
+              <td mat-cell *matCellDef="let element">
+                <span class="status-indicator" [ngClass]="{'found': element.Status === 'Found', 'not-found': element.Status === 'Not Found'}">
+                  <mat-icon *ngIf="element.Status === 'Found'">check_circle</mat-icon>
+                  <mat-icon *ngIf="element.Status === 'Not Found'">cancel</mat-icon>
+                  {{ element.Status }}
+                </span>
+              </td>
+            </ng-container>
+
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           </table>

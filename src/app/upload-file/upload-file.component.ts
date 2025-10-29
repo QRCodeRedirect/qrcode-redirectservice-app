@@ -15,6 +15,7 @@ export interface UrlRecord {
   'S.No': number;
   'Short URL': string;
   'Destination URL': string;
+  'Status': string;
 }
 
 @Component({
@@ -35,12 +36,21 @@ export interface UrlRecord {
   styleUrls: ['./upload-file.component.scss'],
 })
 export class UploadFileComponent implements AfterViewInit {
-  displayedColumns: string[] = ['S.No', 'Short URL', 'Destination URL'];
+  displayedColumns: string[] = ['S.No', 'Short URL', 'Destination URL', 'Status'];
   dataSource = new MatTableDataSource<UrlRecord>();
   recordCount = 0;
   filterValue: string = '';
   // used by the footer in the template
   currentYear: number = new Date().getFullYear();
+
+  // Existing batch data for validation
+  private existingShortUrls = [
+    'https://dev.ecl.inc/u3v4w5x6',
+    'https://dev.ecl.inc/a1b2c3d4',
+    'https://dev.ecl.inc/e5f6g7h8',
+    'https://dev.ecl.inc/i9j0k1l2',
+    'https://dev.ecl.inc/m3n4o5p6'
+  ];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   constructor(private router: Router) {
@@ -73,14 +83,22 @@ export class UploadFileComponent implements AfterViewInit {
 
       // Convert sheet to JSON and add Serial Number
       const data: any[] = XLSX.utils.sheet_to_json(ws);
-      const formattedData: UrlRecord[] = data.map((row, index) => ({
-        'S.No': index + 1,
-        'Short URL': row['Short URL'],
-        'Destination URL': row['Destination URL'],
-      }));
+      const formattedData: UrlRecord[] = data.map((row, index) => {
+        const shortUrl = row['Short URL'] || '';
+        const isFound = this.existingShortUrls.includes(shortUrl);
+        return {
+          'S.No': index + 1,
+          'Short URL': shortUrl,
+          'Destination URL': row['Destination URL'] || '',
+          'Status': isFound ? 'Found' : 'Not Found'
+        };
+      });
 
-      this.dataSource.data = formattedData;
-      this.recordCount = formattedData.length;
+      // Filter to only include found records
+      const validData = formattedData.filter(record => record.Status === 'Found');
+
+      this.dataSource.data = validData;
+      this.recordCount = validData.length;
       // Re-assign the paginator to the data source to ensure it works after new data is loaded.
       // ensure paginator is attached after data assignment and view updates
       setTimeout(() => {

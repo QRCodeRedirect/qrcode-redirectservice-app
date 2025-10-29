@@ -4,15 +4,19 @@
 </header>
 
 <section class="action-buttons">
-  <button mat-raised-button color="primary" class="action-btn">
-    <mat-icon class="action-icon">download</mat-icon>
-    Download All QR Codes(ZIP)
+  <button mat-raised-button color="primary" class="action-btn" (click)="downloadQrZip()" [disabled]="isDownloading">
+    <span class="icon-circle">
+      <mat-icon class="action-icon">download</mat-icon>
+    </span>
+    <mat-spinner *ngIf="isDownloading" diameter="20" class="spinner"></mat-spinner>
+    <span class="action-text">{{ isDownloading ? 'Generating ZIP...' : 'Download All QR Codes (ZIP)' }}</span>
   </button>
-  <button mat-raised-button color="primary" class="action-btn">
+  <button mat-raised-button color="primary" class="action-btn" (click)="exportToExcel()" [disabled]="isExporting">
     <mat-icon class="action-icon">file_download</mat-icon>
-    Export to CSV
+    <mat-spinner *ngIf="isExporting" diameter="20" class="spinner"></mat-spinner>
+    {{ isExporting ? 'Exporting...' : 'Export to Excel' }}
   </button>
-  <button mat-raised-button color="primary" class="action-btn">
+  <button mat-raised-button color="primary" class="action-btn" (click)="showBulkEdit = true">
     <mat-icon class="action-icon">edit</mat-icon>
     Bulk Edit
   </button>
@@ -116,11 +120,10 @@
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef> STATUS </th>
       <td mat-cell *matCellDef="let element">
-        <span class="status-label" [ngClass]="{'active': element.status === 'Active', 'expired': element.status === 'Expired'}">
-          <mat-icon *ngIf="element.status === 'Active'">check_circle</mat-icon>
-          <mat-icon *ngIf="element.status === 'Expired'">cancel</mat-icon>
-          {{ element.status }}
-        </span>
+        <mat-slide-toggle [checked]="element.status === 'Active'" (change)="toggleStatus(element, $event.checked)" class="status-toggle">
+          <span class="sr-only"></span>
+        </mat-slide-toggle>
+        <span class="status-text" [ngClass]="{ 'active': element.status === 'Active', 'inactive': element.status !== 'Active' }">{{ element.status }}</span>
       </td>
     </ng-container>
 
@@ -132,8 +135,8 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef class="col-center"> ACTIONS </th>
       <td mat-cell *matCellDef="let element" class="col-center actions-cell">
-        <button mat-button color="primary">Save</button>
-        <button mat-button color="warn">Delete</button>
+          <button mat-button class="table-action save">Save</button>
+          <button mat-button class="table-action delete">Delete</button>
       </td>
     </ng-container>
 
@@ -150,6 +153,9 @@
     <span>Showing {{ startIndex + 1 }}–{{ (startIndex + pageSize) > filtered.length ? filtered.length : (startIndex + pageSize) }} of {{ filtered.length | number }}</span>
   </div>
 </div>
+
+<!-- Bulk edit modal component -->
+<app-bulk-edit *ngIf="showBulkEdit" [data]="data" (apply)="onBulkApply($event)" (close)="closeBulkEdit()"></app-bulk-edit>
 
 <div class="footer-bar">
   <span class="footer-title">© Ecolab {{ currentYear }}</span>

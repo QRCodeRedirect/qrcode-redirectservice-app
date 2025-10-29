@@ -1,0 +1,48 @@
+<div class="bulk-overlay" role="dialog" aria-modal="true" aria-label="Bulk Edit URLs">
+  <div class="bulk-modal">
+    <header class="bulk-header">
+      <h2>Bulk Edit - Upload Excel (.xlsx)</h2>
+      <button mat-icon-button aria-label="Close" (click)="onClose()"><mat-icon>close</mat-icon></button>
+    </header>
+
+    <section class="bulk-body">
+      <div class="upload-row">
+        <label for="excel-upload" class="file-label">Upload Excel File (.xlsx)</label>
+        <input type="file" id="excel-upload" (change)="onFileChange($event)" accept=".xlsx" class="file-input">
+        <span *ngIf="fileName" class="file-name">{{ fileName }}</span>
+      </div>
+
+      <div class="errors" *ngIf="errors.length">
+        <div *ngFor="let e of errors" class="error">{{ e }}</div>
+      </div>
+
+      <div class="preview" *ngIf="preview.length">
+        <h3>Preview</h3>
+        <table mat-table [dataSource]="preview" class="preview-table">
+          <ng-container matColumnDef="shortUrl">
+            <th mat-header-cell *matHeaderCellDef> Short URL </th>
+            <td mat-cell *matCellDef="let row" [class.row-error]="!row.shortUrl">{{ row.shortUrl || 'Missing' }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="redirectUrl">
+            <th mat-header-cell *matHeaderCellDef> Redirect URL </th>
+            <td mat-cell *matCellDef="let row" [class.row-error]="!row.redirectUrl">{{ row.redirectUrl || 'Missing' }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef> Status </th>
+            <td mat-cell *matCellDef="let row" [class.row-error]="!row.status">{{ row.status || 'Missing' }}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="['shortUrl', 'redirectUrl', 'status']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['shortUrl', 'redirectUrl', 'status'];"></tr>
+        </table>
+      </div>
+    </section>
+
+    <footer class="bulk-footer">
+          <button mat-raised-button color="accent" (click)="confirmApply()">Apply Changes</button>
+          <button mat-stroked-button color="primary" (click)="onClose()">Cancel</button>
+    </footer>
+  </div>
+</div>
