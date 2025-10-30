@@ -77,4 +77,20 @@ export class DashboardComponent {
     // You can keep the filtering inside the filteredBatches method (for instant search), so this could be empty
   }
 
+  // Remove a batch from the displayed list (same behavior as batch page)
+  // Accept the click event to prevent default anchor navigation so the app won't redirect.
+  deleteRow(elementToDelete: any, event?: MouseEvent) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    // Find by name (name is unique enough for this demo dataset); adjust if you have an id
+    const index = this.batches.findIndex(b => b.name === elementToDelete.name);
+    if (index > -1) {
+      this.batches.splice(index, 1);
+      // No explicit refresh needed: template uses filteredBatches() which reads from this.batches
+    }
+  }
+
 }

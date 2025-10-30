@@ -1,3 +1,22 @@
+// Define a reusable button style
+%base-button {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.25rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover:not([disabled]) {
+    background: #0056b3;
+  }
+}
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -33,8 +52,14 @@
   border-bottom: 1px solid #e0e0e0;
 
   .action-btn {
+    @extend %base-button;
+    gap: 8px; // Add space between icon and text
+
     .action-icon {
-      margin-right: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
     }
   }
 }
@@ -55,6 +80,13 @@
     .icon {
       font-size: 2rem;
       margin-right: 1rem;
+    }
+
+    .action-text {
+      background-color: #2997e3 !important;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
     }
 
     .metric-text {
@@ -103,18 +135,7 @@
     }
 
     .search-button {
-      background: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 0.75rem 1.25rem;
-      cursor: pointer;
-      font-weight: 500;
-      transition: background 0.2s;
-
-      &:hover {
-        background: #0056b3;
-      }
+      @extend %base-button;
     }
   }
 }
@@ -154,15 +175,15 @@
   }
 }
 
-.my-shadow-table {
-  width: 100%;
-}
+// .my-shadow-table {
+//   width: 100%;
+// }
 
-/* Layout & spacing adjustments for table rows: remove default horizontal dividers and add vertical spacing */
-.my-shadow-table {
-  border-collapse: separate; /* allow vertical spacing */
-  border-spacing: 0 12px; /* vertical gap between rows */
-}
+// /* Layout & spacing adjustments for table rows: remove default horizontal dividers and add vertical spacing */
+// .my-shadow-table {
+//   border-collapse: separate; /* allow vertical spacing */
+//   border-spacing: 0 12px; /* vertical gap between rows */
+// }
 
 /* Header cells: consistent alignment & padding */
 th.mat-header-cell {
@@ -198,6 +219,12 @@ tr.mat-header-row {
 
   .url-text {
     font-family: monospace;
+    /* ensure the short url text vertically centers with icons and buttons */
+    display: inline-flex;
+    align-items: center;
+    height: 28px; /* match QR/thumb and toggle heights */
+    line-height: 28px;
+    vertical-align: middle;
   }
 
   .buttonCopy {
@@ -223,8 +250,8 @@ tr.mat-header-row {
 }
 
 .qr-thumb {
-  width: 35px;
-  height: 35px;
+  width: 28px;
+  height: 28px;
   border: 1px solid #eee;
   border-radius: 4px;
   display: block;
@@ -354,5 +381,402 @@ td.mat-cell.qr-cell::after {
     text-align: left;
     width: 100%;
     padding-left: 32px;
+  }
+}
+
+.my-shadow-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 12px; // vertical gap between rows
+}
+
+/* Table cell spacing and alignment */
+.my-shadow-table td {
+  vertical-align: middle;
+  padding: 8px 12px;
+}
+
+/* Short URL cell */
+.short-url-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.url-text {
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Copy button */
+.copy-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.buttonCopy {
+  height: 32px;
+  width: 32px;
+  min-width: 32px;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.copybtn {
+  font-size: 18px;
+}
+
+/* Destination input */
+.destination-input {
+  height: 32px;
+  //line-height: 32px;
+  padding: 0 8px;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+/* QR image */
+.qr-thumb {
+  height: 30px;
+  width: 32px;
+  object-fit: contain;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Status toggle and label */
+.status-toggle {
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.status-wrapper {
+  display: inline-flex;
+  align-items: center;
+}
+
+.status-text {
+  font-size: 13px;
+  line-height: 28px;
+  &.active {
+    color: #2e7d32;
+    font-weight: 500;
+  }
+  &.inactive {
+    color: #c62828;
+    font-weight: 500;
+  }
+}
+
+/* Action buttons */
+.actions-cell {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.table-action {
+  height: 32px;
+ // line-height: 32px;
+  min-width: 64px;
+  font-size: 14px;
+  padding: 0 12px;
+}
+
+/* Pagination styles */
+.pagination {
+  margin-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ---------- Row alignment & visual balance overrides (scoped to this component) ---------- */
+/* Ensure table uses separated rows with vertical gap (already set on .my-shadow-table) */
+.my-shadow-table {
+  /* keep vertical spacing, don't collapse borders */
+  border-collapse: separate;
+  border-spacing: 0 12px;
+}
+
+/* Give each data row a card-like appearance and equal height */
+.my-shadow-table tr.mat-row {
+  background: #ffffff;
+  box-shadow: 0 1px 6px rgba(16,24,40,0.04);
+  border-radius: 8px;
+  height: 64px; /* consistent row height */
+  min-height: 64px;
+}
+
+/* Make each table cell a flex container so contents align vertically center and layout consistently */
+.my-shadow-table td.mat-cell,
+.my-shadow-table th.mat-header-cell {
+  padding: 12px 16px;
+  vertical-align: middle;
+  border-bottom: none !important; /* remove any horizontal dividers */
+}
+
+.my-shadow-table td.mat-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 64px; /* ensure cell follows row height */
+  overflow: visible; /* allow popovers/buttons to show */
+}
+
+/* Normalize control heights inside cells so inputs, toggles and buttons line up */
+.my-shadow-table .destination-input,
+.my-shadow-table input[type="text"],
+.my-shadow-table .buttonCopy,
+.my-shadow-table .copybtn,
+.my-shadow-table .table-action,
+.my-shadow-table .status-toggle {
+  height: 36px;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 8px;
+}
+
+/* Destination input should expand to use available space but remain vertically centered */
+.my-shadow-table .destination-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 6px 10px;
+}
+
+
+/* QR thumbnail: slightly larger and centered */
+.my-shadow-table .qr-thumb {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  object-fit: contain;
+  display: block;
+  margin: 0; /* parent cell flexbox centers it */
+}
+
+/* Center QR cell content explicitly */
+.my-shadow-table td.mat-cell.qr-cell,
+.my-shadow-table td.mat-cell .qr-wrapper {
+  justify-content: center;
+}
+
+/* Remove any accidental pseudo-element dividers in table cells */
+.my-shadow-table td.mat-cell::before,
+.my-shadow-table td.mat-cell::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* Actions column: keep buttons centered and visually balanced */
+.my-shadow-table .actions-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Small responsive tweak: reduce row height on narrow screens */
+@media (max-width: 640px) {
+  .my-shadow-table tr.mat-row,
+  .my-shadow-table td.mat-cell {
+    height: 56px;
+    min-height: 56px;
+  }
+  .my-shadow-table .destination-input,
+  .my-shadow-table .table-action,
+  .my-shadow-table .copybtn {
+    height: 32px;
+    min-height: 32px;
+  }
+}
+
+/* End of row alignment overrides */
+
+/* ---------- Fix residual lines and enforce true vertical centering ---------- */
+/* Remove any borders or divider artifacts that may remain on table, rows or cells */
+.my-shadow-table,
+.my-shadow-table table {
+  border-collapse: separate;
+  border-spacing: 0 12px;
+}
+
+.my-shadow-table th.mat-header-cell,
+.my-shadow-table td.mat-cell,
+.my-shadow-table tr.mat-row {
+  border: none !important;
+  outline: none !important;
+  background-clip: padding-box; /* prevent shadows cutting into rounded corners */
+}
+
+/* Remove pseudo dividers inside header/cells that can create broken lines */
+.my-shadow-table th.mat-header-cell::before,
+.my-shadow-table th.mat-header-cell::after,
+.my-shadow-table td.mat-cell::before,
+.my-shadow-table td.mat-cell::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* Ensure inner elements don't create extra spacing or borders */
+.my-shadow-table td.mat-cell > *,
+.my-shadow-table td.mat-cell * {
+  margin: 0;
+  padding: 0;
+  vertical-align: middle; /* fallback for inline elements */
+  //line-height: normal;
+}
+
+/* Make images and qr thumbs block-level so flex parent can center them exactly */
+.my-shadow-table td.mat-cell img,
+.my-shadow-table .qr-thumb {
+  display: block;
+  max-width: 100%;
+}
+
+/* If Angular Material injects borders on host elements, override them here for safety */
+::ng-deep .my-shadow-table .mat-row,
+::ng-deep .my-shadow-table .mat-cell {
+  border: none !important;
+}
+
+/* final safety: make sure cells align items center even if other selectors interfere */
+.my-shadow-table td.mat-cell {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.my-shadow-table .status-cell {
+  justify-content: center;
+  gap: 8px;
+}
+
+/* End residual fixes */
+
+
+
+/*new fix for alignemtn */
+
+.my-shadow-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 12px;
+
+  th.mat-header-cell,
+  td.mat-cell {
+    padding: 12px 16px;
+    vertical-align: middle;
+    border: none !important;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 64px;
+  }
+
+  tr.mat-row {
+    background: #fff;
+    box-shadow: 0 1px 6px rgba(16, 24, 40, 0.04);
+    border-radius: 8px;
+  }
+
+  .short-url-cell {
+    /* Keep content in a single row so baselines line up with Destination input */
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+
+    .url-text {
+      font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 36px; /* match control height for baseline alignment */
+      height: 36px;
+      display: inline-block;
+      margin-top: 9px; /* add ~0.5 line visual space above the short URL text */
+    }
+
+    .buttonCopy {
+      height: 36px;
+      width: 36px;
+      min-width: 36px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      .copybtn {
+        font-size: 16px;
+        line-height: 1;
+      }
+    }
+  }
+
+  .destination-input {
+    /* Full-width input to align visually with Short URL text */
+    width: 100%;
+    height: 36px;
+    padding: 0 10px;
+    font-size: 14px;
+    box-sizing: border-box;
+    line-height: 36px; /* ensure the input text baseline aligns */
+  }
+
+  .qr-thumb {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    border-radius: 6px;
+    display: block;
+    margin: auto;
+  }
+
+  .status-toggle {
+    height: 24px;
+    margin-right: 8px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .status-text {
+    font-size: 12px;
+    line-height: 28px;
+    &.active {
+      color: #2e7d32;
+      font-weight: 500;
+    }
+    &.inactive {
+      color: #c62828;
+      font-weight: 500;
+    }
+  }
+
+  .actions-cell {
+    justify-content: center;
+    gap: 8px;
+    flex-direction: row; /* keep actions on a single line to match row height */
+    align-items: center;
+
+    .table-action {
+      height: 36px;
+      min-width: 64px;
+      font-size: 14px;
+      padding: 0 12px;
+    }
   }
 }

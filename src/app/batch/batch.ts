@@ -152,6 +152,15 @@ export class Batch {
     this.showBulkEdit = false;
   }
 
+  deleteRow(elementToDelete: PeriodicElement) {
+    const index = this.data.findIndex(d => d.shortUrl === elementToDelete.shortUrl);
+    if (index > -1) {
+      this.data.splice(index, 1);
+      // Re-apply filtering and pagination to update the UI
+      this.applyFilter();
+    }
+  }
+
   applyFilter() {
     const q = this.search.toLowerCase();
     this.filtered = this.data.filter(r => {

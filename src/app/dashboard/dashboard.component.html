@@ -83,7 +83,7 @@
           </td>
           <td>{{ batch.created }}</td>
           <td>
-            <a routerLink="/batch">View</a> | <a href="#">Download</a> | <a href="#" class="delete-link">Delete</a>
+            <a routerLink="/batch">View</a> | <a href="#">Download</a> | <a href="#" class="delete-link" (click)="deleteRow(batch, $event)">Delete</a>
           </td>
         </tr>
       </tbody>
