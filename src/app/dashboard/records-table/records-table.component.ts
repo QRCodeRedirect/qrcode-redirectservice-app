@@ -68,7 +68,7 @@ const BATCHES: Batch[] = [
   styleUrls: ['./records-table.component.scss'],
 })
 export class RecordsTableComponent implements AfterViewInit, OnInit, OnChanges {
-  displayedColumns: string[] = ['name', 'description', 'shortUrl', 'qrCode', 'created', 'actions'];
+  @Input() displayedColumns: string[] = ['name', 'description', 'shortUrl', 'qrCode', 'created', 'actions'];
   dataSource = new MatTableDataSource<Batch>(BATCHES);
   isLoading = false;
 

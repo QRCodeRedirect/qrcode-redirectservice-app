@@ -1,103 +1,112 @@
 <header class="header">
-  <div class="logo">ECL QR Code Manager</div>
-  <span class="user-profile">{{ userName }}</span>
+	<div class="logo">ECL QR Code Manager</div>
+	<span class="user-profile">{{ userName }}</span>
 </header>
 
 <div class="dashboard-container">
-  <div class="dashboard-title-bar">
-    <div class="title-left">
-      <h1>Dashboard</h1>
-      <nav class="header-nav">
-        <a routerLink="/activity" routerLinkActive="active">Activity</a>
-        
-      </nav>
-    </div>
-    <button class="create-batch-btn" routerLink="/create-batch">Create Batch</button>
-  </div>
+	<div class="dashboard-title-bar">
+		<div class="title-left">
+			<h1>Dashboard</h1>
+			<nav class="header-nav">
+				<a routerLink="/activity" routerLinkActive="active">Activity</a>
+			</nav>
+		</div>
+		<button class="create-batch-btn" routerLink="/create-batch">Create Batch</button>
+	</div>
 
-  <!-- Metrics Summary -->
-  <section class="metrics-summary">
-    <div class="metric-card">
-      <div class="icon">🛍️</div>
-      <div class="metric-value">247</div>
-      <div class="metric-label">Total Batches</div>
-      <div class="metric-sublabel">+12% from last month</div>
-    </div>
-    <div class="metric-card">
-      <div class="icon">🔗</div>
-      <div class="metric-value">18,432</div>
-      <div class="metric-label">Active Short URLs</div>
-      <div class="metric-sublabel">+8.2% from last month</div>
-    </div>
-    <div class="metric-card">
-      <div class="icon">📊</div>
-      <div class="metric-value">142.8K</div>
-      <div class="metric-label">Total Scans</div>
-      <div class="metric-sublabel">+23% from last month</div>
-    </div>
-    <div class="metric-card">
-      <div class="icon">🌍</div>
-      <div class="metric-value">48</div>
-      <div class="metric-label">Countries Reached</div>
-      <div class="metric-sublabel">+3 new countries</div>
-    </div>
-  </section>
+	<!-- Metrics Summary (static for demo) -->
+	<section class="metrics-summary">
+		<div class="metric-card">
+			<div class="icon">🛍️</div>
+			<div class="metric-value">247</div>
+			<div class="metric-label">Total Batches</div>
+			<div class="metric-sublabel">+12% from last month</div>
+		</div>
+		<div class="metric-card">
+			<div class="icon">🔗</div>
+			<div class="metric-value">18,432</div>
+			<div class="metric-label">Active Short URLs</div>
+			<div class="metric-sublabel">+8.2% from last month</div>
+		</div>
+		<div class="metric-card">
+			<div class="icon">📊</div>
+			<div class="metric-value">142.8K</div>
+			<div class="metric-label">Total Scans</div>
+			<div class="metric-sublabel">+23% from last month</div>
+		</div>
+		<div class="metric-card">
+			<div class="icon">🌍</div>
+			<div class="metric-value">48</div>
+			<div class="metric-label">Countries Reached</div>
+			<div class="metric-sublabel">+3 new countries</div>
+		</div>
+	</section>
 
-  <!-- Recent Batches Table -->
-  <section class="batches-section">
-    <div class="batches-header">
-      <h4>Recent Batches</h4>
-      <div class="search-bar">
-        
-        <input type="text" placeholder="Search batches..." [(ngModel)]="searchTerm" class="search-input" />
-        <button (click)="searchBatches()">Search</button>
+	<!-- Recent Batches Table -->
+	<section class="batches-section">
+		<div class="batches-header">
+			<h3>Recent Batches</h3>
+					<div class="search-bar">
+						<input type="text" placeholder="Search batches..." [(ngModel)]="searchTerm" class="search-input" />
+						<button (click)="searchBatches()">Search</button>
 
-        <a routerLink="/advanced-search" routerLinkActive="active" class="advanced-search-link">
-  <img src="assets/3dot.svg" class="dots-icon" />
-  <span class="tooltip-text">Advanced Search</span>
-</a>
+						<!-- Header three-dot: opens a small menu for advanced search (tooltip removed) -->
+      <button mat-icon-button class="advanced-search-link" [matMenuTriggerFor]="headerMenu" aria-label="Advanced actions">
+        <img src="assets/3dot.svg" class="dots-icon" />
+      </button>
+			<mat-menu #headerMenu="matMenu" class="vanilla-menu">
+				<button mat-menu-item (click)="navigateToAdvancedSearch()">Advanced Search</button>
+			</mat-menu>
+						 
+					</div>
+		</div>
 
-      </div>
-    </div>
-    <table class="batches-table">
-      <thead>
-        <tr>
-          <th>Batch Name</th>
-          <th>Description</th>
-          <th>URLs</th>
-          <th>Status</th>
-          <th>Created</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let batch of filteredBatches()">
-          <td><a routerLink="/batch">{{ batch.name }}</a></td>
-          <td>{{ batch.description }}</td>
-          <td>{{ batch.urls }}</td>
-          <td>
-            <span [ngClass]="{'status-complete': batch.status === 'Complete', 'status-processing': batch.status === 'Processing'}">
-              <ng-container *ngIf="batch.status === 'Complete'">✓ Complete</ng-container>
-              <ng-container *ngIf="batch.status === 'Processing'">⏳ Processing</ng-container>
-            </span>
-          </td>
-          <td>{{ batch.created }}</td>
-          <td>
-            <a routerLink="/batch">View</a> | <a href="#">Download</a> | <a href="#" class="delete-link" (click)="deleteRow(batch, $event)">Delete</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="pagination">
-      <button>< Previous</button>
-      <span>Showing 5 of 247 batches</span>
-      <button>Next ></button>
-    </div>
-  </section>
+		<ng-container *ngIf="batches$ | async as batches">
+			<table class="batches-table">
+				<thead>
+					<tr>
+						<th>Batch Name</th>
+						<th>Description</th>
+						<th>URLs</th>
+						<th>Status</th>
+						<th>Created</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let batch of batches">
+						<td><a [routerLink]="['/batch']">{{ batch.batchName }}</a></td>
+						<td>{{ batch.description }}</td>
+						<td>{{ batch.urls }}</td>
+						<td>
+							<span [ngClass]="{'status-complete': batch.status === 'Complete', 'status-processing': batch.status === 'Processing'}">
+								<ng-container *ngIf="batch.status === 'Complete'">✓ Complete</ng-container>
+								<ng-container *ngIf="batch.status === 'Processing'">⏳ Processing</ng-container>
+							</span>
+						</td>
+						<td>{{ batch.created | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+									<td>
+										<a [routerLink]="['/batch']">View</a> | <a href="#">Download</a>
+										<!-- Hide Delete for non-admin users -->
+										<span *ngIf="isAdmin"> | <a href="#" class="delete-link" (click)="onDelete(batch.id, $event)">Delete</a></span>
+										<!-- Three-dots action icon (similar to batch page) -->
+										
 
-  <!-- Footer -->
-  
+									</td>
+					</tr>
+				</tbody>
+			</table>
 
-<div class="footer-bar">
-  <span class="footer-title">© Ecolab {{ currentYear }}</span>
+			<div class="pagination">
+				<button disabled>&lt; Previous</button>
+				<span>Showing {{ (batches.length) }} batches</span>
+				<button disabled>Next &gt;</button>
+			</div>
+		</ng-container>
+
+	</section>
+
+	<div class="footer-bar">
+		<span class="footer-title">© Ecolab {{ currentYear }}</span>
+	</div>
 </div>

@@ -74,10 +74,13 @@
       <input type="text" placeholder="Search by code or destination..." class="search-input ng-pristine ng-valid ng-touched" [(ngModel)]="search" (ngModelChange)="applyFilter()">
       <button class="search-button" (click)="applyFilter()">Search</button>
 
-       <a routerLink="/advanced-search" routerLinkActive="active" class="advanced-search-link">
-          <img src="assets/3dot.svg" class="dots-icon" />
-          <span class="tooltip-text">Advanced Search</span>
-        </a>
+      <!-- Header three-dot: opens a small menu for advanced search (tooltip removed) -->
+      <button mat-icon-button class="advanced-search-link" [matMenuTriggerFor]="headerMenu" aria-label="Advanced actions">
+        <img src="assets/3dot.svg" class="dots-icon" />
+      </button>
+      <mat-menu #headerMenu="matMenu" class="vanilla-menu">
+        <button mat-menu-item (click)="navigateToAdvancedSearch()">Advanced Search</button>
+      </mat-menu>
       
     </div>
   </div>
@@ -107,7 +110,14 @@
   <ng-container matColumnDef="qrImg">
     <th mat-header-cell *matHeaderCellDef class="col-center">QR</th>
     <td mat-cell *matCellDef="let element" class="col-center">
-      <img [src]="element.qrImg || 'assets/qrcode.svg'" class="qr-thumb" />
+      <div class="qr-with-menu">
+        <img [src]="element.qrImg || 'assets/qrcode.svg'" class="qr-thumb" />
+
+      </div>
+      <!-- menu definition (shared for rows) -->
+      <mat-menu #qrMenu="matMenu" class="vanilla-menu">
+        <button mat-menu-item (click)="navigateToAdvancedSearch(element)">Advanced Search</button>
+      </mat-menu>
     </td>
   </ng-container>
 
@@ -131,7 +141,7 @@
   <!-- Expiry -->
   <ng-container matColumnDef="expiryDate">
     <th mat-header-cell *matHeaderCellDef>Expires</th>
-    <td mat-cell *matCellDef="let element">{{ element.expiryDate | date:'MM/dd/yyyy' }}</td>
+    <td mat-cell *matCellDef="let element">{{ element.expiryDate | date:'dd/MM/yyyy HH:mm:ss' }}</td>
   </ng-container>
 
   <!-- Actions -->
@@ -139,7 +149,8 @@
     <th mat-header-cell *matHeaderCellDef class="col-center">Actions</th>
     <td mat-cell *matCellDef="let element" class="actions-cell">
       <button mat-button class="table-action save">Save</button>
-      <button mat-button class="table-action delete" (click)="deleteRow(element)">Delete</button>
+      <!-- Conditionally show the Delete button only for admins -->
+      <button *ngIf="isAdmin" mat-button class="table-action delete" (click)="deleteRow(element)">Delete</button>
     </td>
   </ng-container>
 

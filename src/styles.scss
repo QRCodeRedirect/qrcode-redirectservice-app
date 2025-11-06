@@ -134,11 +134,13 @@ main {
 }
 
 .mat-mdc-row:hover {
-  background-color: #87CEEB !important;
+  /* Remove global hover highlight so table rows don't get a blue background on hover */
+  background-color: transparent !important;
 }
 
 .mat-mdc-row.selected-row {
-  background-color: #87CEEB !important;
+  /* Remove selected row highlight (use explicit selection styling elsewhere if needed) */
+  background-color: transparent !important;
 }
 
 mat-label {
@@ -176,4 +178,93 @@ mat-label {
 .error-flat-button:not([disabled]) {
   --mdc-filled-button-container-color: var(--mat-sys-error);
   --mdc-filled-button-label-text-color: var( --mat-sys-on-error);
+}
+
+/* Global vanilla-menu styles (compact blue menu used across pages) */
+.vanilla-menu .mat-mdc-menu-content {
+  background-color: #007bff; /* blue */
+  padding: 4px; /* compact padding */
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  min-width: 120px;
+  margin-top: 6px;
+}
+
+.vanilla-menu .mat-mdc-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px; /* comfortable click target while compact */
+  margin: 4px 0;
+  border-radius: 6px;
+  font-size: 12px;
+  line-height: 18px;
+  color: #fff; /* fallback */
+}
+
+.vanilla-menu .mat-mdc-menu-item .mat-mdc-menu-item-text,
+.vanilla-menu .mat-mdc-menu-item .mat-mdc-menu-item-icon {
+  color: #fff !important;
+  font-size: 12px !important;
+  line-height: 18px !important;
+}
+
+.vanilla-menu .mat-mdc-menu-item:hover {
+  background-color: rgba(255,255,255,0.06);
+}
+
+/* Small dot/icon in menu items */
+.vanilla-menu .mat-mdc-menu-item .dots-icon,
+.vanilla-menu .mat-mdc-menu-item .menu-dot-icon {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  margin-right: 8px;
+}
+
+/* Force 3-dot trigger images to appear white so they contrast on light backgrounds */
+.advanced-search-link .dots-icon,
+.dots-icon {
+  filter: invert(1) brightness(2) saturate(0.8);
+}
+
+/* Ensure material menu panel text uses white when using vanilla-menu */
+.vanilla-menu .mat-mdc-menu-content, .vanilla-menu {
+  color: #fff;
+}
+
+/* Column width and alignment fixes for Material tables */
+/* Ensures header cells align with data cells for 'Name' and 'Actions' columns */
+.mat-column-name,
+th.mat-header-cell.mat-column-name,
+td.mat-cell.mat-column-name {
+  width: 20% !important;
+  min-width: 150px !important;
+}
+
+.mat-column-actions,
+th.mat-header-cell.mat-column-actions,
+td.mat-cell.mat-column-actions {
+  width: 10% !important;
+  min-width: 100px !important;
+  text-align: center !important;
+}
+
+/* QR column names differ between components (qrCode / qrImg) so cover both */
+.mat-column-qrCode,
+.mat-column-qrImg,
+th.mat-header-cell.mat-column-qrCode,
+td.mat-cell.mat-column-qrCode,
+th.mat-header-cell.mat-column-qrImg,
+td.mat-cell.mat-column-qrImg {
+  width: 15% !important;
+  text-align: center !important;
+}
+
+/* Optional: normalize padding/alignment for mat header/cells inside our tables */
+table.mat-table th.mat-header-cell,
+table.mat-table td.mat-cell {
+  padding: 12px 16px !important;
+  vertical-align: middle !important;
 }

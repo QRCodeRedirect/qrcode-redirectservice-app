@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -16,8 +16,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { BulkEditComponent, BulkEditRow } from './bulk-edit.component';
 import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
+import { MatMenuModule } from '@angular/material/menu';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from '../create-batch/auth.service';
 
 export interface PeriodicElement {
   shortUrl: string;
@@ -77,6 +80,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     CommonModule,
     MatCardModule,
     MatIconModule,
+  MatMenuModule,
     MatTableModule,
     ClipboardModule,
     MatDatepickerModule,
@@ -95,7 +99,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   templateUrl: './batch.html',
   styleUrl: './batch.scss',
 })
-export class Batch {
+export class Batch implements OnInit {
   displayedColumns: string[] = ['shortUrl', 'destinastionUrl','qrImg', 'click', 'status', 'expiryDate', 'actions'];
 
   // dataset and view state
@@ -118,6 +122,7 @@ export class Batch {
   get startIndex() { return this.pageIndex * this.pageSize; }
 
   userName = 'John Doe';
+  isAdmin = false;
   currentYear = new Date().getFullYear();
 
   // Download ZIP state
@@ -125,7 +130,17 @@ export class Batch {
   // Exporting Excel state
   isExporting = false;
 
-  constructor(private http: HttpClient, private snackBar: MatSnackBar) {
+  constructor(
+    private http: HttpClient,
+    private snackBar: MatSnackBar,
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    // Set user info from AuthService
+    this.userName = this.authService.currentUserValue?.name || 'User';
+    this.isAdmin = this.authService.isAdmin();
     this.applyFilter();
   }
 
@@ -332,5 +347,11 @@ export class Batch {
   toggleStatus(entry: PeriodicElement, checked: boolean) {
     entry.status = checked ? 'Active' : 'InActive';
     this.snackBar.open(`Status: ${entry.status}`, 'Close', { duration: 1500 });
+  }
+
+  // Navigate to Advanced Search page. Optionally include a query param so advanced search can prefill.
+  navigateToAdvancedSearch(element?: PeriodicElement) {
+    const query = element && element.shortUrl ? element.shortUrl : '';
+    this.router.navigate(['/advanced-search'], { queryParams: { q: query } });
   }
 }

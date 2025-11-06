@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RecordsTableComponent, Batch } from '../dashboard/records-table/records-table.component';
+import { AuthService } from '../create-batch/auth.service';
 
 type Criteria = 'equals' | 'contains' | 'startsWith' | 'endsWith';
 
@@ -19,9 +20,11 @@ type Criteria = 'equals' | 'contains' | 'startsWith' | 'endsWith';
   templateUrl: './advanced-search.component.html',
   styleUrls: ['./advanced-search.component.scss']
 })
-export class AdvancedSearchComponent {
+export class AdvancedSearchComponent implements OnInit {
   @Output() search = new EventEmitter<Batch[]>();
   @Input() source: Batch[] = [];
+
+  userName: string = 'John Doe'; // Replace with actual user name logic
 
   // default dataset loaded when the page opens
   defaultSource: Batch[] = [
@@ -64,6 +67,7 @@ export class AdvancedSearchComponent {
 
   currentYear = new Date().getFullYear();
   lastResults: Batch[] = [];
+  displayedColumns: string[] = ['name', 'description', 'shortUrl', 'created', 'actions'];
 
   attributes = [
     'name', 'description', 'shortUrl', 'created'
@@ -78,7 +82,7 @@ export class AdvancedSearchComponent {
 
   form: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService) {
     this.form = this.fb.group({
       rules: this.fb.array([
         this.fb.group({
@@ -138,6 +142,8 @@ export class AdvancedSearchComponent {
   }
 
   ngOnInit(): void {
+    // Set user information from the AuthService
+    this.userName = this.authService.currentUserValue?.name || 'John Doe';
     // run an initial search so results show on page load
     this.runSearch(this.defaultSource);
   }

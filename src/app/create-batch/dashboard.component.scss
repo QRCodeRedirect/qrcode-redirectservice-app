@@ -1,0 +1,35 @@
+/* Basic table styles for demonstration */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+}
+
+/* Styles for the actions cell to ensure alignment */
+.actions-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Adds space between buttons */
+  width: auto;
+  text-align: right;
+  justify-content: flex-end;
+}
+
+.action-button {
+  /* Add your button styles here */
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}

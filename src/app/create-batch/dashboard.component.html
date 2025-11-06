@@ -1,0 +1,33 @@
+<div class="dashboard-container">
+  <h1>Batch Overview</h1>
+
+  <div class="content-wrapper">
+   <table>
+  <thead>
+    <tr>
+      <th>Batch Name</th>
+      <th>Description</th>
+      <th>URLs</th>
+      <th>Status</th>
+      <th>Created</th>
+      <th class="actions-cell">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let batch of batches$ | async">
+      <td>{{ batch.batchName }}</td>
+      <td>{{ batch.description }}</td>
+      <td>{{ batch.urls }}</td>
+      <td>{{ batch.status }}</td>
+      <td>{{ batch.created }}</td>
+      <td class="actions-cell">
+        <button class="action-button view-button">View</button>
+        <!-- Conditionally render the Delete button for admins -->
+        <button *ngIf="isAdmin" (click)="onDelete(batch.id)" class="action-button delete-button">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+  </div>
+</div>

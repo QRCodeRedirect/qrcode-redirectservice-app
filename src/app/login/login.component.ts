@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService, User } from '../create-batch/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,11 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   loginError: string | null = null;
 
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -30,9 +35,19 @@ export class LoginComponent implements OnInit {
   onLogin(): void {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
+      let userToLogin: User | null = null;
+
       if (email === 'admin@ecolab.com' && password === 'password') {
-        // Pass username to dashboard via navigation state
-        this.router.navigate(['/dashboard'], { state: { username: 'admin' } });
+        userToLogin = { id: 'admin-id-001', name: 'Admin User', role: 'admin' };
+      } else if (email === 'user@ecolab.com' && password === 'password') {
+        // Added a normal user for testing
+        userToLogin = { id: 'user-id-123', name: 'Normal User', role: 'user' };
+      }
+
+      if (userToLogin) {
+        this.authService.login(userToLogin);
+        // Navigate to the main dashboard
+        this.router.navigate(['/dashboard']);
       } else {
         this.loginError = 'Invalid email or password.';
       }

@@ -140,18 +140,22 @@
   }
 }
 
-.advanced-search-link {
+  .advanced-search-link {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 32px;
-  height: 32px;
+  height: 20px;
   text-decoration: none;
+  background-color: white;
 
   .dots-icon {
-    width: 14px;
-    height: 14px;
+    width: 18px;
+    height: 18px;
+    filter: none !important; /* ensure the SVG/icon is shown in its original (dark) color on white background */
+    display: block;
+    color: #000; /* explicitly set to black for visibility */
   }
 
   .tooltip-text {
@@ -668,6 +672,52 @@ td.mat-cell.qr-cell::after {
 
 /* End residual fixes */
 
+/* Custom vanilla menu: make it match the global dashboard style, sit above rows and be clearly visible */
+::ng-deep .vanilla-menu .mat-mdc-menu-content {
+  background-color: #007bff; /* blue */
+  padding: 6px 8px; /* comfortable click area */
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  min-width: 140px; /* slightly wider so text doesn't truncate */
+  margin-top: 8px; /* gap between trigger and panel */
+  z-index: 1300 !important; /* ensure the menu sits above table rows and other content */
+}
+
+/* Menu items: use readable sizes and spacing consistent with dashboard */
+::ng-deep .vanilla-menu .mat-mdc-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px; /* comfortable vertical & horizontal padding */
+  margin: 4px 0;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+/* Force menu item text and icons to white so they contrast against the blue background */
+::ng-deep .vanilla-menu .mat-mdc-menu-item .mat-mdc-menu-item-text,
+::ng-deep .vanilla-menu .mat-mdc-menu-item .mat-mdc-menu-item-icon {
+  color: #fff !important;
+  font-size: 13px !important;
+  line-height: 20px !important;
+}
+
+/* Hover state: subtle white overlay on blue */
+::ng-deep .vanilla-menu .mat-mdc-menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Dot/icon in menu items: keep it visible and proportional */
+::ng-deep .vanilla-menu .mat-mdc-menu-item .dots-icon,
+::ng-deep .vanilla-menu .mat-mdc-menu-item .menu-dot-icon {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  margin-right: 8px;
+}
+
 
 
 /*new fix for alignemtn */
@@ -779,4 +829,19 @@ td.mat-cell.qr-cell::after {
       padding: 0 12px;
     }
   }
+
+  .mat-mdc-menu-item-text {
+    display: inline-block;       /* Ensures width and height can be adjusted */
+    height: auto;                /* let content determine height */
+    width: auto;                 /* don't artificially constrain width */
+    text-align: left;            /* Aligns text to the left */
+    padding: 2px 6px;            /* Tighter padding for compactness */
+    font-size: 13px;             /* slightly larger for readability */
+    line-height: 20px;           /* comfortable line height */
+    overflow: hidden;            /* hides overflow if text is too long */
+    white-space: nowrap;         /* prevents text wrapping */
+    color: #fff !important;      /* ensure visible on blue background */
+    font-weight: 500;            /* make text bolder for better visibility */
+  }
+
 }

@@ -1,13 +1,13 @@
-<mat-toolbar class="header">
-  <span><img src="assets/ecolab-logo-white-svg.svg" alt="Ecolab Logo" /></span>
-  <span class="toolbar-title">Advanced Search</span>
- </mat-toolbar>
+<header class="header">
+	<div class="logo">ECL QR Code Manager</div>
+	<span class="user-profile">{{ userName }}</span>
+</header>
 
 <div class="advanced-search-root">
 <div class="advanced-search-container">
   <mat-card class="advanced-search-card">
     <mat-card-header>
-      <!-- <mat-card-title>Advanced Search</mat-card-title> -->
+      <mat-card-title>Advanced Search</mat-card-title>
     </mat-card-header>
 
     <mat-card-content [formGroup]="form">
@@ -45,12 +45,9 @@
   </mat-card>
 </div>
 
-<div class="results-container">
-  <app-records-table [data]="lastResults"></app-records-table>
-</div>
+<h2 class="results-header">Search Results</h2>
 
-
-
+<app-records-table [data]="lastResults" [displayedColumns]="displayedColumns"></app-records-table>
 
 </div>
 

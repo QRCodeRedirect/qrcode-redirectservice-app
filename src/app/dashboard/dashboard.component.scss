@@ -285,10 +285,16 @@
   width: 32px;
   height: 32px;
   text-decoration: none;
+  background-color: #ffffff !important; /* enforce white background on Dashboard */
+  border-radius: 6px;
+  padding: 4px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
 
   .dots-icon {
-    width: 14px;
-    height: 14px;
+    width: 18px;
+    height: 18px;
+    filter: none !important; /* ensure the SVG/icon is shown in its original (dark) color on white background */
+    display: block;
   }
 
   .tooltip-text {
@@ -296,7 +302,7 @@
     bottom: 100%;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #333;
+    background-color:white;
     color: #fff;
     padding: 4px 8px;
     border-radius: 4px;
@@ -312,31 +318,39 @@
   }
 }
 
+
 .batches-table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 1rem;
-}
 
-.batches-table th, .batches-table td {
-  padding: 1rem .75rem;
-  border: none;
-  text-align: left;
-  font-family: 'Roboto', sans-serif;
-}
+  th,
+  td {
+    padding: 1rem 0.75rem;
+    border: none;
+    text-align: left;
+    font-family: 'Roboto', sans-serif;
+    background-color: #ffffff; // Ensure white background for all cells
+  }
 
-.batches-table th {
-  background: #f8f9fa;
-  font-weight: 600;
-  color: #495057;
-}
+  th {
+    background-color: #ffffff;
+    font-weight: 600;
+    color: #495057;
+  }
 
-.batches-table tr:nth-child(even) {
-  background: #f9f9f9;
-}
+  tr {
+    background-color: #ffffff;
 
-.batches-table tr:hover {
-  background: #f8f9fa;
+    &:nth-child(even),
+    &:nth-child(odd) {
+      background-color: #ffffff;
+    }
+
+    &:hover {
+      background-color: #ffffff;
+    }
+  }
 }
 
 .status-complete {
@@ -462,14 +476,14 @@ a:hover {
   align-items: center;
   justify-content: center;
   width: 32px;
-  height: 32px;
+  height: 20px;
   text-decoration: none;
+  background-color: white;
 
   .dots-icon {
-    width: 10px;
-    height: 10px;
+    width: 16px;
+    height: 16px;
   }
-
   .tooltip-text {
     position: absolute;/* Root layout */
 :host {
@@ -685,34 +699,34 @@ a:hover {
       }
 
       /* Advanced Search icon link */
-      a.advanced-search-link {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 28px;  /* compact button size */
-        height: 28px;
-        padding: 0;
-        line-height: 1;
-        text-decoration: none;
-        cursor: pointer;
-        border-radius: 6px;
-        border: 1px solid transparent;
-        transition: background 120ms ease, border-color 120ms ease;
+      // a.advanced-search-link {
+      //   display: inline-flex;
+      //   align-items: center;
+      //   justify-content: center;
+      //   width: 28px;  /* compact button size */
+      //   height: 28px;
+      //   padding: 0;
+      //   line-height: 1;
+      //   text-decoration: none;
+      //   cursor: pointer;
+      //   border-radius: 6px;
+      //   border: 1px solid transparent;
+      //   transition: background 120ms ease, border-color 120ms ease;
 
-        .dots-icon {
-          width: 16px;     /* reduced icon size */
-          height: 16px;
-          object-fit: contain;
-          display: block;  /* remove baseline gap */
-        }
+      //   .dots-icon {
+      //     width: 16px;     /* reduced icon size */
+      //     height: 16px;
+      //     object-fit: contain;
+      //     display: block;  /* remove baseline gap */
+      //   }
 
-        &:hover,
-        &:focus-visible {
-          background: rgba(0, 0, 0, 0.05);
-          border-color: #e5e7eb;
-          outline: none;
-        }
-      }
+        // &:hover,
+        // &:focus-visible {
+        //   background: rgba(0, 0, 0, 0.05);
+        //   border-color: #e5e7eb;
+        //   outline: none;
+        // }
+      //}
     }
   }
 
@@ -859,6 +873,18 @@ a:hover {
     align-items: flex-start;
   }
 }
+
+// /* Custom vanilla menu background */
+// ::ng-deep .vanilla-menu .mat-mdc-menu-content {
+//   background-color: #f3e5ab; /* A nice vanilla color */
+// }
+// ::ng-deep .vanilla-menu .mat-mdc-menu-item .mat-mdc-menu-item-text {
+//   color: #333; /* Darker text for better readability on vanilla background */
+//   border-radius: 50px; /* Eclipse shape */
+// }
+
+
+
     bottom: 100%;
     left: 50%;
     transform: translateX(-50%);
@@ -877,5 +903,61 @@ a:hover {
     opacity: 1;
   }
 }
+
+/* Custom vanilla menu: smaller, blue background, white text for better contrast */
+::ng-deep .vanilla-menu .mat-mdc-menu-content {
+  background-color: #007bff; /* blue */
+  padding: 3px; /* compact padding */
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
+  min-width: 120px; /* narrower panel */
+  margin-top: 6px; /* gap between the 3-dot trigger and the menu panel */
+}
+
+/* Make each menu item a compact, single-line rounded row with smaller font */
+::ng-deep .vanilla-menu .mat-mdc-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* slightly reduced space between icon and text */
+  padding: 2px 8px; /* compact vertical size, small horizontal padding */
+  margin: 2px 0; /* tighter vertical gap between items */
+  border-radius: 6px;
+  font-size: 11px; /* slightly smaller font */
+  line-height: 16px; /* keep item height compact */
+}
+
+/* Force menu item text and icons to white so they contrast against the blue background */
+::ng-deep .vanilla-menu .mat-mdc-menu-item .mat-mdc-menu-item-text,
+::ng-deep .vanilla-menu .mat-mdc-menu-item .mat-mdc-menu-item-icon {
+  color: #fff !important;
+  font-size: 11px !important;
+  line-height: 16px !important;
+}
+
+/* Hover state: subtle white overlay on blue */
+::ng-deep .vanilla-menu .mat-mdc-menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Tiny dot icon inside the menu */
+::ng-deep .vanilla-menu .mat-mdc-menu-item .dots-icon,
+::ng-deep .vanilla-menu .mat-mdc-menu-item .menu-dot-icon {
+  width: 6px;
+  height: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff !important;
+  font-size: 7px;
+  margin-right: 6px;
+}
+
+/* If a dot icon needs extra gap below or spacing when stacked, allow a small bottom margin */
+::ng-deep .vanilla-menu .mat-mdc-menu-item .dots-icon--below {
+  margin-bottom: 8px;
+}
+
 
 }
