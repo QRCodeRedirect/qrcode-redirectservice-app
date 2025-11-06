@@ -40,9 +40,9 @@ export class ActivityComponent implements OnInit {
   stats$!: Observable<ActivityStats>;
   // used by the footer in the template
   currentYear: number = new Date().getFullYear();
-
+ userName = 'John Doe';
   // Table related
-  displayedColumns: string[] = ['user', 'loginTime', 'logoutTime', 'filesUploaded', 'filesDeleted', 'createdDate'];
+  displayedColumns: string[] = ['user', 'batchCreated','filesUploaded','shortUrls', 'filesDeleted', 'createdDate'];
   dataSource = new MatTableDataSource<any>();
   filterValue: string = '';
 
@@ -65,82 +65,63 @@ export class ActivityComponent implements OnInit {
         user: 'John Doe',
         loginTime: '2025-10-01 09:00 AM',
         logoutTime: '2025-10-01 05:00 PM',
-        filesUploaded: 12,
+        batchCreated: 3,
+        shortUrls: 4,
+        filesUploaded:4,
         filesDeleted: 3,
-        createdDate: '2025-10-01'
+        createdDate: '2025-10-01 05:00 PM'
       },
-      {
-        user: 'Jane Smith',
-        loginTime: '2025-10-01 08:45 AM',
-        logoutTime: '2025-10-01 04:30 PM',
-        filesUploaded: 8,
-        filesDeleted: 1,
-        createdDate: '2025-10-01'
-      },
-      {
-        user: 'Michael Lee',
-        loginTime: '2025-10-02 09:15 AM',
-        logoutTime: '2025-10-02 05:15 PM',
-        filesUploaded: 15,
-        filesDeleted: 2,
-        createdDate: '2025-10-02'
-      },
-      {
-        user: 'Sara Khan',
-        loginTime: '2025-10-02 09:00 AM',
-        logoutTime: '2025-10-02 05:00 PM',
-        filesUploaded: 10,
-        filesDeleted: 0,
-        createdDate: '2025-10-02'
-      },
-      {
-        user: 'David Chen',
-        loginTime: '2025-10-03 08:30 AM',
-        logoutTime: '2025-10-03 04:45 PM',
-        filesUploaded: 7,
-        filesDeleted: 4,
-        createdDate: '2025-10-03'
-      },
-      {
-        user: 'Emily Davis',
-        loginTime: '2025-10-03 09:10 AM',
-        logoutTime: '2025-10-03 05:10 PM',
-        filesUploaded: 11,
-        filesDeleted: 2,
-        createdDate: '2025-10-03'
-      },
-      {
-        user: 'Robert Patel',
-        loginTime: '2025-10-04 09:00 AM',
-        logoutTime: '2025-10-04 05:00 PM',
-        filesUploaded: 9,
-        filesDeleted: 1,
-        createdDate: '2025-10-04'
-      },
-      {
-        user: 'Linda Brown',
-        loginTime: '2025-10-04 08:50 AM',
-        logoutTime: '2025-10-04 04:50 PM',
-        filesUploaded: 13,
-        filesDeleted: 3,
-        createdDate: '2025-10-04'
-      },
-      {
-        user: 'Kevin White',
-        loginTime: '2025-10-05 09:05 AM',
-        logoutTime: '2025-10-05 05:05 PM',
-        filesUploaded: 6,
-        filesDeleted: 0,
-        createdDate: '2025-10-05'
-      },
-      {
-        user: 'Aisha Roy',
-        loginTime: '2025-10-05 09:20 AM',
-        logoutTime: '2025-10-05 05:20 PM',
-        filesUploaded: 14,
-        filesDeleted: 2,
-        createdDate: '2025-10-05'
-      }
+      // {
+      //   user: 'Jane Smith',
+      //   loginTime: '2025-10-01 08:45 AM',
+      //   logoutTime: '2025-10-01 04:30 PM',
+      //   batchCreated: 3,
+      //   shortUrls: 90,
+      //   filesUploaded: 8,
+      //   filesDeleted: 1,
+      //   createdDate: '2025-10-01 04:30 PM'
+      // },
+      // {
+      //   user: 'Michael Lee',
+      //   loginTime: '2025-10-02 09:15 AM',
+      //   logoutTime: '2025-10-02 05:15 PM',
+      //   batchCreated: 4,
+      //   shortUrls: 120,
+      //   filesUploaded: 15,
+      //   filesDeleted: 2,
+      //   createdDate: '2025-10-02 05:15 PM'
+      // },
+      // {
+      //   user: 'Sara Khan',
+      //   loginTime: '2025-10-02 09:00 AM',
+      //   logoutTime: '2025-10-02 05:00 PM',
+      //   batchCreated: 2,
+      //   shortUrls: 60,
+      //   filesUploaded: 10,
+      //   filesDeleted: 0,
+      //   createdDate: '2025-10-02 05:00 PM'
+      // },
+      // {
+      //   user: 'David Chen',
+      //   loginTime: '2025-10-03 08:30 AM',
+      //   logoutTime: '2025-10-03 04:45 PM',
+      //   batchCreated: 6,  
+      //   shortUrls: 180,
+      //   filesUploaded: 7,
+      //   filesDeleted: 4,
+      //   createdDate: '2025-10-03 04:45 PM'
+      // },
+      // {
+      //   user: 'Emily Davis',
+      //   loginTime: '2025-10-03 09:00 AM',
+      //   logoutTime: '2025-10-03 05:30 PM',    
+      //   batchCreated: 5,
+      //   shortUrls: 150,
+      //   filesUploaded: 12,
+      //   filesDeleted: 2,
+      //   createdDate: '2025-10-03 05:30 PM'
+      // }
+      
     ];
   }
 

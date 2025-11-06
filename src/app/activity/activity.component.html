@@ -1,16 +1,37 @@
-<mat-toolbar class="header">
+<!-- <mat-toolbar class="header">
   <span><img src="assets/ecolab-logo-white-svg.svg" alt="Ecolab Logo" /></span>
   <span class="toolbar-title">Activity</span>
-</mat-toolbar>
+</mat-toolbar> -->
+<header class="header-Activity">
+  <div class="logo">ECL QR Code Manager</div>
+  <span class="user-profile">{{ userName }}</span>
+</header>
 
-<div class="activity-container">
-  <mat-card class="activity-card">
-    <mat-card-header>
+
+<!-- <div class="activity-container">
+  <mat-card class="activity-card"> -->
+  <div class="table-container">
+  <div class="table-header">
+     <p class="bold-text">Recent user activity</p>
+    <div class="controls tableTop">
+     <div class="table-header">
+        <mat-form-field appearance="outline" class="activity-filter">
+          <mat-label class="filter">Filter</mat-label>
+          <input matInput (input)="applyFilter($any($event.target).value)" placeholder="Search user or date" />
+        </mat-form-field>
+        <div class="paginator-wrapper">
+          <mat-paginator [pageSizeOptions]="[10, 25, 100]" showFirstLastButtons aria-label="Select page of records"></mat-paginator>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+    <!-- <mat-card-header>
       <mat-card-title>Activity Grid</mat-card-title>
       <mat-card-subtitle>Recent user activity</mat-card-subtitle>
     </mat-card-header>
-    <mat-card-content>
-      <div class="table-header">
+    <mat-card-content> -->
+      <!-- <div class="table-header">
         <mat-form-field appearance="outline" class="activity-filter">
           <mat-label>Filter</mat-label>
           <input matInput (input)="applyFilter($any($event.target).value)" placeholder="Search user or date" />
@@ -18,7 +39,7 @@
         <div class="paginator-wrapper">
           <mat-paginator [pageSizeOptions]="[10, 25, 100]" showFirstLastButtons aria-label="Select page of records"></mat-paginator>
         </div>
-      </div>
+      </div> -->
 
       <div class="table-responsive">
         <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z2">
@@ -26,25 +47,38 @@
           <!-- User Column -->
           <ng-container matColumnDef="user">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> User </th>
-            <td mat-cell *matCellDef="let element"> {{element.user}} </td>
+            <!-- <td mat-cell *matCellDef="let element"> {{element.user}} </td> -->
+            <td  mat-cell *matCellDef="let element"><a href="/activityDetails">{{element.user}}</a></td>
           </ng-container>
 
           <!-- Login Time Column -->
-          <ng-container matColumnDef="loginTime">
+          <!-- <ng-container matColumnDef="loginTime">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Login Time </th>
             <td mat-cell *matCellDef="let element"> {{element.loginTime}} </td>
-          </ng-container>
+          </ng-container> -->
 
           <!-- Logout Time Column -->
-          <ng-container matColumnDef="logoutTime">
+          <!-- <ng-container matColumnDef="logoutTime">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Logout Time </th>
             <td mat-cell *matCellDef="let element"> {{element.logoutTime}} </td>
-          </ng-container>
+          </ng-container> -->
 
+   <!-- Batch Created Column -->
+          <ng-container matColumnDef="batchCreated">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Batch Created </th>
+            <td mat-cell *matCellDef="let element"> {{element.batchCreated}} </td>
+          </ng-container>
           <!-- Files Uploaded Column -->
           <ng-container matColumnDef="filesUploaded">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Files Uploaded </th>
             <td mat-cell *matCellDef="let element"> {{element.filesUploaded}} </td>
+          </ng-container>
+
+        
+           <!-- Short URLs Column -->
+          <ng-container matColumnDef="shortUrls">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Short URLs Modifieds</th>
+            <td mat-cell *matCellDef="let element"> {{element.shortUrls}} </td>
           </ng-container>
 
           <!-- Files Deleted Column -->
@@ -55,7 +89,7 @@
 
           <!-- Created Date Column -->
           <ng-container matColumnDef="createdDate">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Created Date </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Created Date Time </th>
             <td mat-cell *matCellDef="let element"> {{element.createdDate}} </td>
           </ng-container>
 
@@ -63,8 +97,8 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
       </div>
-    </mat-card-content>
-  </mat-card>
+    <!-- </mat-card-content> -->
+  <!-- </mat-card> -->
 </div>
 
 

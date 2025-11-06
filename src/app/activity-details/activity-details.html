@@ -1,0 +1,96 @@
+<header class="header-Activity">
+  <div class="logo">ECL QR Code Manager</div>
+  <span class="user-profile">{{ userName }}</span>
+</header>
+
+<div class="table-container">
+  <div class="table-header">
+     <p class="bold-text">Batch Created</p>
+  </div>
+
+      <div class="table-responsive">
+        <table mat-table [dataSource]="batchdataSource" matSort class="mat-elevation-z2">
+
+          <ng-container matColumnDef="batchName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Batch Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.batchName}} </td>
+          </ng-container>
+            <ng-container matColumnDef="timeStamp">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Time Stamp </th>
+            <td mat-cell *matCellDef="let element"> {{element.timeStamp}} </td>
+        </ng-container>
+        <ng-container matColumnDef="downloadFile">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Download File</th>
+            <td mat-cell *matCellDef="let element" (click)="downloadQrZip()">
+                <a href="path/to/your/file.pdf" download="SuggestedFileName.pdf" title="Download File">
+                    <mat-icon>download</mat-icon>
+                </a>
+            </td>
+        </ng-container>
+         
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+<!-- File Uploaded -->
+      <div class="table-header">
+     <p class="bold-text">File Uploaded</p>
+  </div>
+
+      <div class="table-responsive">
+        <table mat-table [dataSource]="fileUploaddataSource" matSort class="mat-elevation-z2">
+
+          <ng-container matColumnDef="fileName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> File Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.fileName}} </td>
+          </ng-container>
+            <ng-container matColumnDef="timeStamp">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Time Stamp </th>
+            <td mat-cell *matCellDef="let element"> {{element.timeStamp}} </td>
+          </ng-container>
+           <ng-container matColumnDef="downloadFile">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Download File</th>
+            <td mat-cell *matCellDef="let element"  (click)="downloadQrZip()"><a href="path/to/your/file.pdf" download="SuggestedFileName.pdf" title="Download File">
+  <mat-icon>download</mat-icon>
+</a></td>
+          </ng-container>         
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsForFileUpload"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsForFileUpload;"></tr>
+        </table>
+      </div>
+      <!-- Short Url Modified -->
+      <div class="table-header container">
+        <div class="container">
+        <p class="bold-text">Short URLs Modified</p>
+        <h4>Count - {{shortUrlCount}}</h4>
+       <h4 class="displayName"> Download<a href="path/to/your/file.pdf" download="SuggestedFileName.pdf" title="Download File" class="download-link ">
+          <mat-icon>download</mat-icon>
+        </a>
+      </h4>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table mat-table [dataSource]="shortUrlsModifiedsSource" matSort class="mat-elevation-z2">
+
+          <ng-container matColumnDef="existingShortUrls">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Existing URLs </th>
+            <td mat-cell *matCellDef="let element"> {{element.existingShortUrls}} </td>
+          </ng-container>
+            <ng-container matColumnDef="modifiedShortUrls">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Modified Short URLs </th>
+            <td mat-cell *matCellDef="let element"> {{element.modifiedShortUrls}} </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsForShortUrlsModifieds"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsForShortUrlsModifieds;"></tr>
+        </table>
+      </div>
+    <!-- </mat-card-content> -->
+  <!-- </mat-card> -->
+</div>
+
+<div class="footer-bar">
+  <span class="footer-title">© Ecolab {{ currentYear || '2025' }}</span>
+</div>

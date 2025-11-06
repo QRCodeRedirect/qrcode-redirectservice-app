@@ -1,5 +1,22 @@
 /* Styles for activity.component.scss */
 
+.table-container {
+  padding: 2rem;
+  margin: 0 2rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+  .table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1 rem;   
+  }
+}
+.filter{
+  font-size: 13px;
+}
 .activity-container {
   padding: 20px;
   /* ensure content sits below fixed header and above footer */
@@ -15,7 +32,10 @@
 //   align-items: center;
 //   margin-bottom: 20px;
 // }
-
+table td,
+table th {
+  border: none;
+}
 .header-center h1,
 .header h1 {
   margin: 0; /* Remove default margin from h1 */
@@ -28,7 +48,10 @@
   display: flex;
   justify-content: flex-start;
 }
-
+ .bold-text {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
 .header-right {
   display: flex;
   justify-content: flex-end;
@@ -166,7 +189,7 @@
   white-space: nowrap !important;
 }
 
-.header {
+.header-Activity {
   display: flex;
   align-items: center;
   height: 56px;
@@ -175,6 +198,7 @@
   background-color: #2997e3 !important; // Use the same blue as dashboard
   color: #fff !important;
   position: relative;
+  
 }
 
 .header img {
@@ -231,14 +255,38 @@
   justify-content: flex-end;
   margin-bottom: 8px;
 }
+.user-profile {
+  font-weight: 500;
+  cursor: pointer;
+  color: white;
+ // padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background 0.2s;
+  //margin-right: 2rem;
+   margin-left: auto;
+}
+.logo {
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 56px;
+  min-height: 56px;
+  padding: 0 24px;
+  background-color: #2997e3 !important;
+  color: #fff !important;
+  position: relative;
+}
 
 .activity-filter {
-  width: 280px;
+  width: 250px;
+  padding-top: 20px;
 }
 
-.table-responsive {
-  overflow: auto;
-}
+
 
 table.mat-table {
   width: 100%;
@@ -249,8 +297,34 @@ th.mat-header-cell, td.mat-cell {
   padding: 12px 16px;
   text-align: left;
 }
+ .mat-mdc-table .mat-mdc-header-row {
+      background-color: #f8f9fa; /* Example: Primary color */
+    }
+.mat-mdc-row:nth-child(even) {
+  background-color: #f5f5f5; // Light gray for odd rows
+}
 
+.mat-mdc-row:nth-child(odd) {
+  background-color: #ffffff; // White for even rows
+}
+// .mat-mdc-row:hover {
+//   background-color: gray !important; /* Your desired hover color */
+// }
+.mat-elevation-z2 .mat-header-row {
+  background-color: gray !important;
+}
+:host ::ng-deep .mat-mdc-row:hover {
+  background-color: #f0f0f0; // A light gray color
+}
+
+// Or for older versions of Angular Material (pre-MDC)
+:host ::ng-deep .mat-row:hover {
+  background-color: #f0f0f0;
+}
 @media (max-width: 720px) {
   .activity-filter { width: 160px; }
   th.mat-header-cell:nth-child(1), td.mat-cell:nth-child(1) { min-width: 120px; }
+}
+.tableTop{
+  margin-bottom: -14px;
 }
