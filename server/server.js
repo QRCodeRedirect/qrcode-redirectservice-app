@@ -4,9 +4,22 @@ const archiver = require('archiver');
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const app = express();
-const PORT = 3000;
+const PORT = 7106; // Changed to match the API URL
+const JWT_SECRET = 'your-secret-key-change-in-production'; // In production, use environment variable
+
+// In-memory user store (replace with database in production)
+const users = [
+  {
+    id: '1',
+    email: 'admin@example.com',
+    name: 'Admin User',
+    passwordHash: '$2a$12$BN6d6CvDwM.1xvJlU3TXsuXcuhQ7/W/wyXxoYATS4ghxnULtgNIjS' // 'password' hashed with bcrypt workFactor 12
+  }
+];
 
 // Middleware
 app.use(cors());
@@ -113,6 +126,42 @@ app.post('/api/download-qr-zip', async (req, res) => {
   } catch (error) {
     console.error('Server error:', error);
     res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Login endpoint
+app.post('/api/Users/Loginverify', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ message: 'Email and password are required' });
+    }
+
+    // Find user by email (simulating Cosmos DB lookup)
+    const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+
+    // Verify password using bcrypt
+    const isValidPassword = await bcrypt.compare(password, user.passwordHash);
+
+    if (!isValidPassword) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+
+    // Return LoginResponse as per specification
+    res.json({
+      message: 'Login successful',
+      redirectUrl: '/dashboard',
+      userId: user.id
+    });
+
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 });
 

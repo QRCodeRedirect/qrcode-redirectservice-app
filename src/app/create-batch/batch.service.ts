@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
+import { BatchCreationRequest } from '../models/batch-creation-request.model';
 
 export interface Batch {
   id: string;
@@ -67,8 +69,9 @@ const MOCK_BATCHES: Batch[] = [
   providedIn: 'root'
 })
 export class BatchService {
+  private apiUrl = 'https://localhost:7106/api/Batches/create-manual';
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private http: HttpClient) { }
 
   getBatches(): Observable<Batch[]> {
     const currentUser = this.authService.currentUserValue;
@@ -88,5 +91,9 @@ export class BatchService {
     // Mock deleting a batch. In a real app, this would be an HTTP call.
     console.log(`Deleting batch with ID: ${batchId}`);
     return of({ success: true });
+  }
+
+  createBatch(request: BatchCreationRequest): Observable<any> {
+    return this.http.post(this.apiUrl, request);
   }
 }

@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
+import { BatchService } from './batch.service';
+import { BatchCreationRequest } from '../models/batch-creation-request.model';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-create-batch',
@@ -16,7 +19,7 @@ export class CreateBatchComponent {
   currentYear: number = new Date().getFullYear();
   userName = 'John Doe'; // Placeholder, can be from service
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private batchService: BatchService, private authService: AuthService) {
     this.batchForm = this.fb.group({
       batchName: ['', [Validators.required]],
       description: [''],
@@ -27,10 +30,31 @@ export class CreateBatchComponent {
 
   onSubmit() {
     if (this.batchForm.valid) {
-      // Handle form submission
-      console.log('Form submitted:', this.batchForm.value);
-      // TODO: Implement actual submission logic
-      this.router.navigate(['/batch']);
+      const userId = this.authService.getUserId();
+      if (!userId) {
+        alert('User not logged in. Please log in first.');
+        return;
+      }
+
+      const request: BatchCreationRequest = {
+        BatchName: this.batchForm.value.batchName,
+        Description: this.batchForm.value.description,
+        UrlCount: this.batchForm.value.numberOfUrls,
+        ExpirationDate: new Date(this.batchForm.value.expirationDate),
+        UserId: userId
+      };
+
+      this.batchService.createBatch(request).subscribe({
+        next: (response) => {
+          console.log('Batch created successfully:', response);
+          alert('Batch created successfully!');
+          this.router.navigate(['/batch']);
+        },
+        error: (error) => {
+          console.error('Error creating batch:', error);
+          alert('Error creating batch. Please try again.');
+        }
+      });
     } else {
       // Mark all fields as touched to show validation errors
       this.batchForm.markAllAsTouched();

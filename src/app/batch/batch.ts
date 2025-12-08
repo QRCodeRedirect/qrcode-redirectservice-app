@@ -30,48 +30,11 @@ export interface PeriodicElement {
   expiryDate: Date;
   qrImg?: string;
 }
-const ELEMENT_DATA: PeriodicElement[] = [
-  {
-    shortUrl: 'https://dev.ecl.inc/u3v4w5x6',
-    destinastionUrl: 'https://vast.ecolab.com/u3v4w5x6',
-    qrImg: 'assets/qrcode.svg',
-    click: 1247,
-    status: 'Active',
-    expiryDate: new Date('2024-09-15')
-  },
-  {
-    shortUrl: 'https://dev.ecl.inc/a1b2c3d4',
-    destinastionUrl: 'https://vast.ecolab.com/a1b2c3d4',
-    qrImg: 'assets/qrcode.svg',
-    click: 823,
-    status: 'Active',
-    expiryDate: new Date('2024-09-12')
-  },
-  {
-    shortUrl: 'https://dev.ecl.inc/e5f6g7h8',
-    destinastionUrl: 'https://vast.ecolab.com/e5f6g7h8',
-    qrImg: 'assets/qrcode.svg',
-    click: 1891,
-    status: 'InActive',
-    expiryDate: new Date('2024-09-11')
-  },
-  {
-    shortUrl: 'https://dev.ecl.inc/i9j0k1l2',
-    destinastionUrl: 'https://vast.ecolab.com/i9j0k1l2',
-    qrImg: 'assets/qrcode.svg',
-    click: 456,
-    status: 'Active',
-    expiryDate: new Date('2024-09-10')
-  },
-  {
-    shortUrl: 'https://dev.ecl.inc/m3n4o5p6',
-    destinastionUrl: 'https://vast.ecolab.com/m3n4o5p6',
-    qrImg: 'assets/qrcode.svg',
-    click: 210,
-    status: 'Active',
-    expiryDate: new Date('2023-12-05')
-  }
-];
+
+export interface ShortUrlResponse {
+  GeneratedShortUrl: string;
+  DestinationUrl: string;
+}
 
 
 @Component({
@@ -103,14 +66,14 @@ export class Batch implements OnInit {
   displayedColumns: string[] = ['shortUrl', 'destinastionUrl','qrImg', 'click', 'status', 'expiryDate', 'actions'];
 
   // dataset and view state
-  data: PeriodicElement[] = ELEMENT_DATA;
-  filtered: PeriodicElement[] = [...this.data];
+  data: PeriodicElement[] = [];
+  filtered: PeriodicElement[] = [];
   paged: PeriodicElement[] = [];
 
-  // metrics (mocked from dataset)
-  totalUrls = this.data.length * 2500; // example to display large number like screenshot
-  activeUrls = Math.round(this.totalUrls * 0.9847);
-  totalClicks = 52300;
+  // metrics (calculated from API data)
+  get totalUrls() { return this.data.length; }
+  get activeUrls() { return this.data.filter(d => d.status === 'Active').length; }
+  get totalClicks() { return this.data.reduce((sum, d) => sum + d.click, 0); }
   get avgClicks() { return this.totalUrls ? this.totalClicks / this.totalUrls : 0; }
 
   // filters and pagination
@@ -141,7 +104,34 @@ export class Batch implements OnInit {
     // Set user info from AuthService
     this.userName = this.authService.currentUserValue?.name || 'User';
     this.isAdmin = this.authService.isAdmin();
-    this.applyFilter();
+    this.fetchShortUrls();
+  }
+
+  fetchShortUrls() {
+    this.http.get<ShortUrlResponse[]>('https://localhost:7106/api/Batches/short-urls').subscribe({
+      next: (response) => {
+        this.data = response.map(item => ({
+          shortUrl: item.GeneratedShortUrl,
+          destinastionUrl: item.DestinationUrl,
+          click: 0, // default values since API doesn't provide
+          status: 'Active',
+          expiryDate: new Date(),
+          qrImg: 'assets/qrcode.svg'
+        }));
+        this.applyFilter();
+      },
+      error: (err) => {
+        console.error('Error fetching short URLs:', err);
+        if (err.status === 404) {
+          this.snackBar.open('No short URLs found', 'Close', { duration: 3000 });
+        } else {
+          this.snackBar.open('Error loading short URLs', 'Close', { duration: 3000 });
+        }
+        // No fallback to mock data - only display API values
+        this.data = [];
+        this.applyFilter();
+      }
+    });
   }
 
   // bulk edit modal state

@@ -1,58 +1,65 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AuthService, User } from '../create-batch/auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    FormsModule
   ],
-  templateUrl: './login.component.html', // This path is now relative to the new folder
-  styleUrls: ['./login.component.scss'],   // This path is now relative to the new folder
+  templateUrl: './login.component.html',  // relative path
+  styleUrls: ['./login.component.scss'], // relative path
 })
-export class LoginComponent implements OnInit {
-  loginForm!: FormGroup;
-  loginError: string | null = null;
+export class LoginComponent {
+  email: string = '';
+  password: string = '';
+  rememberMe: boolean = false;
+  errorMessage: string | null = null;
 
   constructor(
-    private fb: FormBuilder,
     private router: Router,
     private authService: AuthService
   ) {}
 
-  ngOnInit(): void {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
-      rememberMe: [false]
-    });
+  onLoginClick(): void {
+  this.errorMessage = null;
+  const email = (this.email || '').trim();
+  const password = this.password || '';
+
+  if (!email || !password) {
+    this.errorMessage = 'Email and password are required.';
+    return;
   }
 
-  onLogin(): void {
-    if (this.loginForm.valid) {
-      const { email, password } = this.loginForm.value;
-      let userToLogin: User | null = null;
+  this.authService.login(email, password).subscribe({
+    next: (response: any) => {
+      // Normalize casing differences
+      const message = response.message || response.Message;
+      const success = response.success || false;
+      const userId = response.userId || response.UserId;
+      const redirectUrl = response.redirectUrl || response.RedirectUrl;
 
-      if (email === 'admin@ecolab.com' && password === 'password') {
-        userToLogin = { id: 'admin-id-001', name: 'Admin User', role: 'admin' };
-      } else if (email === 'user@ecolab.com' && password === 'password') {
-        // Added a normal user for testing
-        userToLogin = { id: 'user-id-123', name: 'Normal User', role: 'user' };
-      }
-
-      if (userToLogin) {
-        this.authService.login(userToLogin);
-        // Navigate to the main dashboard
-        this.router.navigate(['/dashboard']);
+      if (message === 'Login successful' || success === true) {
+        if (userId) {
+          this.authService.setUserId(String(userId));
+        }
+        // Always redirect to dashboard on successful login
+        this.router.navigate([redirectUrl || '/dashboard']);
       } else {
-        this.loginError = 'Invalid email or password.';
+        // ❌ Show error message
+        this.errorMessage = message || 'Invalid email or password.';
       }
+    },
+    error: (err) => {
+      this.errorMessage = err?.error?.message || 'Login failed.';
     }
-  }
+  });
+}
+
 
   onForgotPassword(): void {
     // Placeholder for forgot password functionality
@@ -60,8 +67,8 @@ export class LoginComponent implements OnInit {
   }
 
   onSignUp(): void {
-     // Navigate to register page
-     this.router.navigate(['/register']);
+    // Navigate to register page
+    this.router.navigate(['/register']);
   }
 
   onSSO(): void {
